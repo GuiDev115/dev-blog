@@ -7,8 +7,6 @@
             <h2 class="text-center text-primary">Login</h2>
         </div>
         <form action="{{ route('admin.login_handler') }}" method="POST">
-
-
             <x-form-alerts></x-form-alerts>
             @csrf
 
@@ -39,7 +37,7 @@
                 </div>
                 <div class="col-6">
                     <div class="forgot-password">
-                        <a href="forgot-password.html">Forgot Password</a>
+                        <a href="{{ route('admin.forgot') }}">Forgot Password</a>
                     </div>
                 </div>
             </div>
