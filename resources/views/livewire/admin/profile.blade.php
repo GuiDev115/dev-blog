@@ -55,10 +55,10 @@
                     <div class="tab height-100-p">
                         <ul class="nav nav-tabs customtab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
+                                <a wire:click="selectTab('personal_details')" class="nav-link {{ $tab  == 'personal_details' }}" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#update_password" role="tab">Atualizar Senha</a>
+                                <a wire:click="selectTab('update_password')" class="nav-link {{ $tab == 'update_password' ? 'active' : ''}}" data-toggle="tab" href="#update_password">Atualizar Senha</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#social_links" role="tab">Redes Sociais</a>
