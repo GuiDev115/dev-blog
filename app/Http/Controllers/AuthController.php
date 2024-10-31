@@ -139,6 +139,12 @@ class AuthController extends Controller
         if( !$isTokenExists){
             return redirect()->route('admin.forgot')->with('fail', 'Token inválido');
         }else{
+            $diffMins = Carbon::createFromFormat('Y-m-d H:i:s', $isTokenExists->created_at)
+                ->diffInMinutes(Carbon::now());
+
+            if($diffMins > 10){
+                return redirect()->route('admin.forgot')->with('fail', 'Token expirado, por favor refaça outra solicitação');
+            }
             $data = [
                 'pageTitle' => 'Reset Password',
                 'token' => $token

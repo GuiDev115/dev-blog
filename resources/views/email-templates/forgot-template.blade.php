@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Your Password</title>
+    <title>Reseta sua senha</title>
     <style>
         /* Reset styles for email clients */
         body {
@@ -86,27 +86,23 @@
             <table role="presentation" class="container" cellpadding="0" cellspacing="0" align="center">
                 <tr>
                     <td class="header">
-                        <h1 style="color: #ffffff; margin: 0;">Reset Your Password</h1>
+                        <h1 style="color: #ffffff; margin: 0;">Esqueceu a Senha</h1>
                     </td>
                 </tr>
                 <tr>
                     <td class="content">
-                        <p>Hello {{ $user->name }}</p>
-                        <p>We received a request to reset your password. If you didn't make this request, you can ignore this email.</p>
-                        <p>To reset your password, click the button below:</p>
-                        <p style="text-align: center;">
-                            <a href="{{ $actionlink }}" target="_black" class="reset-button">Reset Password</a>
-                        </p>
-                        <p>This link will expire in 24 hours.</p>
-                        <p>If the button doesn't work, copy and paste this link into your browser:</p>
-                        <p style="word-break: break-all; font-size: 14px;">[Reset_Link]</p>
-                        <p>Best regards,<br>[Company_Name] Team</p>
+                        <p>Salve, {{ $user->name }}</p>
+                        <p>Recebemos o pedido de redefinicao de senha. Se caso voce não pediu essa solicitacao, favor ignorar esse email.</p>
+                        <p>Para resetar sua senha, click no botao azul abaixo:</p>
+                        <a href="{{ $actionlink }}" target="_black" class="reset-button">Reset Password</a>
+                        <p> O link e valido por 1 hora</p>
+                        <p>Se o botão não funcionar, copie e cole o link em seu navegador:</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="footer">
-                        <p>&copy; {{ date('Y') }}. All rights reserved.</p>
-                        <p>If you need help, please contact our support team.</p>
+                        <p>&copy; {{ date('Y') }}. [DevBlog]. Todos os direitos reservados.</p>
+                        <p>Se voce precisar de ajuda. Pau no te cool</p>
                     </td>
                 </tr>
             </table>

@@ -82,25 +82,23 @@
             <table role="presentation" class="container" cellpadding="0" cellspacing="0" align="center">
                 <tr>
                     <td class="header">
-                        <h1 style="color: #ffffff; margin: 0;">Your Password Has Been Changed</h1>
+                        <h1 style="color: #ffffff; margin: 0;">Sua senha foi trocada</h1>
                     </td>
                 </tr>
                 <tr>
                     <td class="content">
-                        <p>Hello {{ $user->name }}</p>
-                        <p>Your password has been successfully changed for the following account:</p>
+                        <p>Salve, {{ $user->name }}</p>
+                        <p>Sua senha foi trocada com sucesso:</p>
                         <div class="info-box">
                             <p><strong>Username/Email:</strong> {{ $user->email }} ou {{ $user->username }}</p>
-                            <p><strong>New Password:</strong> {{ $new_password }}</p>
                         </div>
-                        <p>If you did not make this change, please contact our support team immediately.</p>
-                        <p>Best regards,<br>[Company_Name] Team</p>
+                        <p>Se não foi voce que fez essa solicitacao, por favor, vai a merda</p>
                     </td>
                 </tr>
                 <tr>
                     <td class="footer">
                         <p>&copy; {{ date('Y') }} [DevBlog]. All rights reserved.</p>
-                        <p>If you need help, please contact our support team.</p>
+                        <p>Se voce precisar de ajuda. Pau no te cool</p>
                     </td>
                 </tr>
             </table>
