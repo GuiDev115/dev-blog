@@ -55,28 +55,70 @@
                     <div class="tab height-100-p">
                         <ul class="nav nav-tabs customtab" role="tablist">
                             <li class="nav-item">
-                                <a wire:click="selectTab('personal_details')" class="nav-link {{ $tab  == 'personal_details' }}" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
+                                <a wire:click="selectTab('personal_details')" class="nav-link {{ $tab  == 'personal_details'  ? ' active' : ''}}" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
                             </li>
                             <li class="nav-item">
                                 <a wire:click="selectTab('update_password')" class="nav-link {{ $tab == 'update_password' ? 'active' : ''}}" data-toggle="tab" href="#update_password">Atualizar Senha</a>
                             </li>
-                            <li class="nav-item">
+                            <li wire:clicK="selectTab('social_links')" class="nav-item"  {{  $tab == 'social_links' ? 'active' : ''}}>
                                 <a class="nav-link" data-toggle="tab" href="#social_links" role="tab">Redes Sociais</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <!-- Timeline Tab start -->
-                            <div class="tab-pane fade show active" id="personal_details" role="tabpanel">
+                            <div class="tab-pane fade {{ $tab == 'personal_details' ?  'show active' : '' }}" id="personal_details" role="tabpanel">
                                 <div class="pd-20">
-                                    ----- Detalhes Pessoais -------
+                                        <form wire:submit="updatePersonalDetails()">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">Nome Completo</label>
+                                                        <input type="text" class="form-control" wire:model="name" placeholder="Entre com seu nome completo">
+                                                        @error('name')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Username</label>
+                                                        <input type="text" class="form-control" wire:model="username" placeholder="Entre com seu Apelido">
+                                                        @error('username')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Email</label>
+                                                        <input type="text" class="form-control" wire:model="email" placeholder="Entre com seu email" disabled>
+                                                        @error('email')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">Bio</label>
+                                                        <textarea wire:model="bio" placeholder="Escreva algo sobre você" col="4" rows="4" class="form-control"></textarea>
+                                                        @error('bio')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="update_password" role="tabpanel">
+                            <div class="tab-pane fade {{ $tab == 'update_password' ?  'show active' : '' }}" id="update_password" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
                                     ---- Atualizar Senha ----
                                 </div>
                             </div>
-                            <div class="tab-pane fade height-100-p" id="social_links" role="tabpanel">
+                            <div class="tab-pane fade {{ $tab == 'social_links' ?  'show active' : '' }}" id="social_links" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
                                     ---- Redes Sociais ----
                                 </div>
