@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::controller(AdminController::class)->group(function(){
             Route::get('/dashboard', 'adminDashboard')->name('dashboard');
             Route::post('/logout', 'logoutHandler')->name('logout');
+            Route::get('/profile', 'profileView')->name('profile');
         });
     });
 });
