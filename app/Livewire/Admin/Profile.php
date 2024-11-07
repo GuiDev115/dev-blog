@@ -10,7 +10,7 @@ class Profile extends Component
 {
     public $tab = null;
     public $tabname = 'personal_details';
-    protected  $queryString = ['tab'=>['keep'=>'true']];
+    protected $queryString = ['tab'=>['keep'=>'true']];
 
     public $name, $email, $username, $bio;
 
@@ -30,7 +30,8 @@ class Profile extends Component
         $this->bio = $user->bio;
     }
 
-    public function updatePersonalDetails(){
+    public function updatePersonalDetails()
+    {
         $user = User::findOrFail(auth()->id());
 
         $this->validate([
