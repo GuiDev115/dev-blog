@@ -47,12 +47,15 @@ class Profile extends Component
         sleep(0.5);
 
         if($updated){
-            $this->dispatch('showToastr',['type'=>'success','message'=>'Perfil atualizado com sucesso']);
-    }else{
-        $this->dispatch('showToastr',['type'=>'error','message'=>'Erro ao atualizar perfil']);}
+            session()->flash('success', 'Profile updated successfully');
+            $this->dispatch('profile-updated', ['type' => 'success', 'message' => 'Profile updated successfully']);
+            $this->dispatch('UpdateTopUserInfo')->to(TopUserInfo::class);
+
+        }else{
+            session()->flash('error', 'Profile update failed');
+            $this->dispatch('profile-updated', ['type' => 'error', 'message' => 'Profile update failed']);
+        }
     }
-
-
     public function render()
     {
         return view('livewire.admin.profile',  [
