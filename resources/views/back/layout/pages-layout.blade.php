@@ -406,7 +406,7 @@
             <ul id="accordion-menu">
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
-								<span class="micon fa fa-th-home"></span
+								<span class="micon fa fa-home"></span
                                 ><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -414,7 +414,7 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
 								<span class="micon fa fa-list"></span
-                                ><span class="mtext">Categories</span>
+                                ><span class="mtext">Categorias</span>
                     </a>
                 </li>
 
@@ -435,14 +435,14 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="">Novo Produto</a></li>
-                        <li><a href="">Todos Produtos</a></li>
+                        <li><a href="">Todos Produto</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <div class="sidebar-small-cap">Configurações</div>
+                    <div class="sidebar-small-cap">Config.</div>
                 </li>
 
                 <li>

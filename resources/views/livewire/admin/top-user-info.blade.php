@@ -17,13 +17,10 @@
                 class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
             >
                 <a class="dropdown-item" href="{{ route('admin.profile') }}"
-                ><i class="dw dw-user1"></i> Profile</a
+                ><i class="dw dw-user1"></i> Perfil</a
                 >
                 <a class="dropdown-item" href="profile.html"
-                ><i class="dw dw-settings2"></i> Setting</a
-                >
-                <a class="dropdown-item" href="faq.html"
-                ><i class="dw dw-help"></i> Help</a
+                ><i class="dw dw-settings2"></i> Config</a
                 >
                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
