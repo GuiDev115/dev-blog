@@ -35,9 +35,9 @@ class AdminController extends Controller
     }
 
     public function updateProfilePicture(Request $request){
-        $user = User::findOrFail(Auth::id());
+        $user = User::findOrFail(auth::id());
         $path = 'images/users/';
-        $file = $request->file('profile_picture');
+        $file = $request->file('profilePictureFile');
         $old_picture = $user->getAttributes()['picture'];
         $filename = 'IMG_'.uniqid().'.png';
 

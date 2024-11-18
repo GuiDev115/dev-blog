@@ -28,7 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/dashboard', 'adminDashboard')->name('dashboard');
             Route::post('/logout', 'logoutHandler')->name('logout');
             Route::get('/profile', 'profileView')->name('profile');
-            Route::post('/update-profile', 'updateProfilePicture')->name('update_profile_picture');
+            Route::post('admin/update-profile-picture', 'updateProfilePicture')->name('update_profile_picture');
         });
     });
 });
