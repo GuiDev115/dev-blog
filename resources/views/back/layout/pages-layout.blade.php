@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>@yield('pageTitle')</title>
 
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Site favicon -->
@@ -498,12 +499,45 @@
 <script src="/back/vendors/scripts/script.min.js"></script>
 <script src="/back/vendors/scripts/process.js"></script>
 <script src="/back/vendors/scripts/layout-settings.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @kropifyScripts
-<script>
-    window.addEventListener('showToastr', function(event){
-        toastr[event.detail.type](event.detail.message, event.detail.title);
-    });
-    </script>
 @stack('scripts')
+<script>
+    // Define the notifa function
+
+    $.fn.notifa = function(options) {
+        var settings = $.extend({
+            vers: 2,
+            cssClass: 'sucess',
+            message: 'Foto atualizada',
+            time: 3000
+        }, options);
+
+        // Use SweetAlert2 to show the notification
+        Swal.fire({
+            icon: settings.cssClass,
+            text: settings.message,
+            timer: settings.time,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            toast: true,
+            color: 'white',
+            background: 'green',
+            position: 'top-end'
+        });
+    };
+
+    // Event listener for showToastr
+    window.addEventListener('showToastr', function(event) {
+        $().notifa({
+            vers: 2,
+            cssClass: event.detail[0].type,
+            message: event.detail[0].message,
+            time: 3000
+        });
+    });
+</script>
+
 </body>
 </html>

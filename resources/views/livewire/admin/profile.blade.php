@@ -55,10 +55,10 @@
                     <div class="tab height-100-p">
                         <ul class="nav nav-tabs customtab" role="tablist">
                             <li class="nav-item">
-                                <a wire:click="selectTab('personal_details')" class="nav-link {{ $tab  == 'personal_details'  ? ' active' : ''}}" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
+                                <a wire:click="selectTab('personal_details')" class="nav-link {{ $tab  == 'personal_details'  ? 'active' : '' }}" data-toggle="tab" href="#personal_details" role="tab">Detalhes Pessoais</a>
                             </li>
                             <li class="nav-item">
-                                <a wire:click="selectTab('update_password')" class="nav-link {{ $tab == 'update_password' ? 'active' : ''}}" data-toggle="tab" href="#update_password">Atualizar Senha</a>
+                                <a wire:click="selectTab('update_password')" class="nav-link {{ $tab == 'update_password' ? 'active' : ''}}" data-toggle="tab" href="#update_password" role="tab">Atualizar Senha</a>
                             </li>
                             <li wire:clicK="selectTab('social_links')" class="nav-item"  {{  $tab == 'social_links' ? 'active' : ''}}>
                                 <a class="nav-link" data-toggle="tab" href="#social_links" role="tab">Redes Sociais</a>
@@ -108,7 +108,7 @@
                                                 </div>
                                                 </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <button type="submit" class="btn btn-primary">Salvar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -123,6 +123,7 @@
                                     ---- Redes Sociais ----
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

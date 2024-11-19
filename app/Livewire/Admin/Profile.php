@@ -44,17 +44,10 @@ class Profile extends Component
         $user->bio = $this->bio;
         $updated = $user->save();
 
-        sleep(0.5);
-
-        if($updated){
-            session()->flash('success', 'Profile updated successfully');
-            $this->dispatch('profile-updated', ['type' => 'success', 'message' => 'Profile updated successfully']);
-            $this->dispatch('UpdateTopUserInfo')->to(TopUserInfo::class);
-
-        }else{
-            session()->flash('error', 'Profile update failed');
-            $this->dispatch('profile-updated', ['type' => 'error', 'message' => 'Profile update failed']);
-        }
+        $this->dispatch('showToastr', [
+            'type' => $updated ? 'success' : 'error',
+            'message' => $updated ? 'Perfil atualizado com sucesso' : 'Erro ao atualizar perfil'
+        ]);
     }
     public function render()
     {

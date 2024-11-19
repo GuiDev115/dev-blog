@@ -14,7 +14,7 @@
                             <a href="{{ route('admin.dashboard') }}">Home</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Profile
+                            Perfil
                         </li>
                     </ol>
                 </nav>
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-@livewire('admin.profile')
+    @livewire('admin.profile')
 
 @endsection
 @push('scripts')
