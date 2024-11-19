@@ -10,8 +10,9 @@
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
 
-*.js linguist-vendored
 public/js/* linguist-vendored
-resources/js/* linguist-vendored
+
+public/css/* linguist-vendored
+
 
 *.php linguist-language=PHP
