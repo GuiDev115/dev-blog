@@ -9,6 +9,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "lucascudo/laravel-pt-br-localization": "^3.0",
         "phpmailer/phpmailer": "^6.9",
         "sawastacks/kropify-laravel": "^2.0"
     },

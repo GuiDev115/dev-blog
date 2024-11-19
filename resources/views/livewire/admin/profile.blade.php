@@ -115,7 +115,41 @@
                                 </div>
                             <div class="tab-pane fade {{ $tab == 'update_password' ?  'show active' : '' }}" id="update_password" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
-                                    ---- Atualizar Senha ----
+                                    <form wire:submit="updatePassword()">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Senha Atual</label>
+                                                        <input type="password" class="form-control" wire:model="current_password" placeholder="Entre com sua senha atual">
+                                                            @error('current_password')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Nova senha</label>
+                                                    <input type="password" class="form-control" wire:model="new_password" placeholder="Entre com sua senha nova">
+                                                    @error('new_password')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Confirme sua Senha</label>
+                                                    <input type="password" class="form-control" wire:model="new_password_confirmation" placeholder="Confirme sua senha nova">
+                                                    @error('new_password_confirmation')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Atualizar Senha</button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="tab-pane fade {{ $tab == 'social_links' ?  'show active' : '' }}" id="social_links" role="tabpanel">

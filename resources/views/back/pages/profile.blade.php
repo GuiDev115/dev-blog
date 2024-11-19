@@ -24,6 +24,7 @@
 
     @livewire('admin.profile')
 
+
 @endsection
 @push('scripts')
     <script>
@@ -39,6 +40,8 @@
             showLoader:true,
             success:function(data){
                 if(data.status == 1){
+                    Livewire.dispatch('updateTopUserInfo', []);
+                    Livewire.dispatch('updateProfile', []);
                     $().notifa({
                         vers:2,
                         cssClass:'success',

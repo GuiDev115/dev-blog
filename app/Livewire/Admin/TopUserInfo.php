@@ -7,12 +7,14 @@ use App\Models\User;
 
 class TopUserInfo extends Component
 {
-    protected $listeners = ['UpdateTopUserInfo' => '$refresh'];
+    protected $listeners = [
+        'updateTopUserInfo' => '$refresh'
+    ];
+
     public function render()
     {
         return view('livewire.admin.top-user-info', [
-            'user'=>User::findOrFail(auth()->id())
+            'user' => User::findOrFail(auth()->id())
         ]);
-
     }
 }

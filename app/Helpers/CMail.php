@@ -7,11 +7,11 @@ use PHPMailer\PHPMailer\Exception;
 class CMail
 {
     public static function send($config){
-        //Create an instance; passing `true` enables exceptions
+        // Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
+            // Server settings
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
             $mail->Host       = config('services.mail.host');
@@ -21,20 +21,26 @@ class CMail
             $mail->SMTPSecure = config('services.mail.encryption');
             $mail->Port       = config('services.mail.port');
 
-            //Recipients
+            // Recipients
             $mail->setFrom(
                 isset($config['from_address']) ? $config['from_address'] : config('services.mail.from_address'),
-                isset ($config['from_name']) ? $config['from_name'] : config('services.mail.from_name')
+                isset($config['from_name']) ? $config['from_name'] : config('services.mail.from_name')
             );
-            $mail->addAddress($config['recipient_address'], isset($config['recipient_name']) ? $config['recipient_name'] : null);
-            //Content
+
+            if (isset($config['recipient_address'])) {
+                $mail->addAddress($config['recipient_address'], isset($config['recipient_name']) ? $config['recipient_name'] : null);
+            } else {
+                throw new Exception('Recipient address is not set.');
+            }
+
+            // Content
             $mail->isHTML(true);
             $mail->Subject = $config['subject'];
             $mail->Body    = $config['body'];
 
-            if ( !$mail->send()){
+            if (!$mail->send()) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
 
@@ -43,5 +49,4 @@ class CMail
         }
     }
 }
-
 ?>
