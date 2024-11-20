@@ -154,7 +154,56 @@
                             </div>
                             <div class="tab-pane fade {{ $tab == 'social_links' ?  'show active' : '' }}" id="social_links" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
-                                    ---- Redes Sociais ----
+                                    <form method="post" wire:submit="updateSocialLinks()">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for=""><b>Facebook</b></label>
+                                                    <input type="text" class="form-control" wire:model="facebook_url" placeholder="Facebook Url">
+                                                    @error('facebook_url')
+                                                        <span class="text-danger ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for=""><b>Youtube</b></label>
+                                                    <input type="text" class="form-control" wire:model="twitter_url" placeholder="Youtube Url">
+                                                    @error('youtube_url')')
+                                                        <span class="text-danger ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for=""><b>LinkedIn</b></label>
+                                                    <input type="text" class="form-control" wire:model="linkedin_url" placeholder="Linkedin Url">
+                                                    @error('linkedin_url')
+                                                        <span class="text-danger ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for=""><b>Twitter</b></label>
+                                                    <input type="text" class="form-control" wire:model="twitter_url" placeholder="Twitter Url">
+                                                    @error('twitter_url')
+                                                        <span class="text-danger ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for=""><b>GitHub</b></label>
+                                                    <input type="text" class="form-control" wire:model="github_url" placeholder="Github Url">
+                                                    @error('github_url')
+                                                        <span class="text-danger ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </form>
                                 </div>
                             </div>
 

@@ -460,7 +460,7 @@
 
                 <li>
                     <a
-                        href=""
+                        href="{{ route('admin.settings')}}"
                         target="_blank"
                         class="dropdown-toggle no-arrow"
                     >
