@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 use SawaStacks\Utils\Kropify;
+use App\Models\GeneralSetting;
 
 class AdminController extends Controller
 {
@@ -69,6 +70,43 @@ class AdminController extends Controller
             'pageTitle' => 'Configurações Gerais',
         ];
         return view('back.pages.general_settings', $data);
+    }
+
+    public function updateLogo(Request $request)
+    {
+        $settings = GeneralSetting::take(1)->first();
+
+        if (!is_null($settings)) {
+            $path = 'images/site/';
+            $old_logo = $settings->site_logo;
+            $file = $request->file('site_logo');
+            $filename = 'logo_'.uniqid().'.png';
+
+            if ($request->hasFile('site_logo')) {
+                $upload = $file->move(public_path($path), $filename);
+                if ($upload) {
+                    if ($old_logo != null && File::exists(public_path($path.$old_logo))) {
+                        File::delete(public_path($path.$old_logo));
+                    }
+                    $settings->update(['site_logo' => $filename]);
+                    return response()->json([
+                        'status' => 1,
+                        'image_path' => $path.$filename,
+                        'message' => 'Logo atualizado com sucesso',
+                    ])->header('Content-Type', 'application/json');
+                } else {
+                    return response()->json([
+                        'status' => 0,
+                        'message' => 'Alguma coisa deu errado ao atualizar o logo',
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 0,
+                    'message' => 'Erro ao atualizar o logo',
+                ]);
+            }
+        }
     }
 
 }

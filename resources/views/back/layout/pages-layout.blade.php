@@ -390,12 +390,12 @@
 
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="index.html">
-            <img src="/back/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
+        <a href="/">
+            <img src="/images/site/{{ isset (settings()->site_logo) ? settings()->site_logo : '' }}" alt="" class="dark-logo site_logo" />
             <img
-                src="/back/vendors/images/deskapp-logo-white.svg"
+                src="/images/site/{{ isset (settings()->site_logo) ? settings()->site_logo : '' }}"
                 alt=""
-                class="light-logo"
+                class="light-logo site_logo"
             />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -536,6 +536,19 @@
             message: event.detail[0].message,
             time: 3000
         });
+    });
+
+    function updateLogo(imagePath) {
+        const logoElements = document.querySelectorAll('.site_logo');
+        logoElements.forEach(logo => {
+            logo.src = '/' + imagePath + '?' + new Date().getTime(); // Add timestamp to force refresh
+        });
+    }
+
+    // Example of how to call the updateLogo function after a successful logo update
+    // This should be called in the AJAX success callback after the logo is updated
+    window.addEventListener('logoUpdated', function(event) {
+        updateLogo(event.detail.image_path);
     });
 </script>
 
