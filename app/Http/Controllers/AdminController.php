@@ -144,4 +144,13 @@ class AdminController extends Controller
         }
     }
 
+    public function categoriesPage(Request $request)
+    {
+        $data = [
+            'pageTitle' => 'Categorias',
+        ];
+        return view('back.pages.categories_page', $data);
+
+    }
+
 }

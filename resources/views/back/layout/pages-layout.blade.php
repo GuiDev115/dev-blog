@@ -402,7 +402,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow">
 								<span class="micon fa fa-list"></span
                                 ><span class="mtext">Categorias</span>
                     </a>
