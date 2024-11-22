@@ -78,6 +78,21 @@
                                 <button type="submit" class="btn btn-primary">Atualizar Logo</button>
                             </form>
                         </div>
+                        <div class="col-md-6">
+                            <h6>Site Favicon</h6>
+                            <div class="mb-2 mt-1" style="max-width: 100px">
+                                <img wire:ignore src="/images/site/{{ settings()->site_favicon }}" alt="" class="img-thumbnail" id="preview_site_favicon">
+                            </div>
+                            <form action="{{ route('admin.update_favicon') }}" method="POST" enctype="multipart/form-data" id="updateFaviconForm">
+                                @csrf
+                                <div class="mb-2">
+                                    <input type="file" name="site_favicon" id="" class="form-control">
+                                    <span class="text-danger ml-1"></span>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Atualizar Favicon</button>
+                            </form>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -89,5 +89,92 @@
             }
         });
 
+        document.querySelector('input[type="file"][name="site_favicon"]').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.querySelector('#preview_site_favicon');
+            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg"];
+
+            if (file && allowedExtensions.includes(file.type)) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        if (img.width === img.height) {
+                            preview.src = e.target.result;
+                        } else {
+                            $().notifa({
+                                vers: 2,
+                                cssClass: 'error',
+                                html: 'Selecione uma imagem para fazer upload.',
+                                message: 'Tem que ser uma imagem quadrada.',
+                                time: 2500,
+                            });
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Tem que ser uma imagem quadrada.',
+                                background: 'red',
+                                toast: true,
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                color : 'white',
+                                position: 'top-end'
+                            });
+                            event.target.value = ''; // Clear the input
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Tipo de arquivo inválido. Apenas JPG, JPEG, e PNG são permitidos.');
+            }
+        });
+
+        $('#updateFaviconForm').submit(function(e){
+            e.preventDefault();
+            let form = this;
+            let inputVal = $(form).find('input[type="file"]').val();
+            let errorElement = $(form).find('span.text-danger');
+            errorElement.text('');
+
+            if(inputVal.length > 0){
+                $.ajax({
+                    url: $(form).attr('action'),
+                    method: $(form).attr('method'),
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function(){},
+                    success: function(data){
+                        if(data.status == 1){
+                            var linkElement = document.querySelector('link[rel="icon"]');
+                            linkElement.href = '/'+data.image_path;
+                            $(form)[0].reset();
+                            $().notifa({
+                                vers: 2,
+                                cssClass: 'success',
+                                html: data.message,
+                                time: 2500,
+                            });
+                            $('img.site_favicon').each(function(){
+                                $(this).attr('src', '/'+data.image_path);
+                            }); // Atualiza a imagem do favicon
+                        } else {
+                            $().notifa({
+                                vers: 2,
+                                cssClass: 'error',
+                                html: data.message,
+                                time: 2500,
+                            });
+                        }
+                    },
+                });
+            } else {
+                errorElement.text('Selecione uma imagem para fazer upload.');
+            }
+        });
+
     </script>
 @endpush
