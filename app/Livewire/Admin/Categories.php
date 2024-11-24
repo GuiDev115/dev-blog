@@ -39,6 +39,28 @@ class Categories extends Component
         }
     }
 
+
+
+    public function updateParentCategory(){
+        $pcategory = ParentCategory::findOrFail($this->pcategory_id);
+        $this->validate([
+            'pcategory_name' => 'required|unique:parent_categories,name,'.$pcategory->id
+        ],[
+            'pcategory_name.required' => 'O nome da categoria pai é obrigatório',
+            'pcategory_name.unique' => 'Essa categoria pai já existe'
+        ]);
+
+        $pcategory->name = $this->pcategory_name;
+        $pcategory->slug = null;
+        $updated = $pcategory->save();
+
+        if($updated) {
+            $this->hideParentCategoryModalForm();
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria pai atualizada com sucesso']);
+        }else{
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao atualizar a categoria pai']);
+        }
+}
     public function showParentCategoryModalForm(){
         $this->resetErrorBag();
         $this->dispatch('showParentCategoryModalForm');
@@ -50,6 +72,13 @@ class Categories extends Component
         $this->pcategory_id = $this->pcategory_name = null;
     }
 
+    public function editParentCategory($id){
+        $pcategory = ParentCategory::findOrFail($id);
+        $this->pcategory_id = $pcategory->id;
+        $this->pcategory_name = $pcategory->name;
+        $this->isUpdateParentCategoryMode = true;
+        $this->showParentCategoryModalForm();
+    }
 
     public function render()
     {

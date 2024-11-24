@@ -28,7 +28,7 @@
                             <td> - </td>
                             <td>
                                 <div class="table-actions">
-                                    <a href="" class="text-primary mx-2">
+                                    <a href="javascript:;" wire:click="editParentCategory({{$item->id}})"  class="text-primary mx-2">
                                         <i class="dw dw-edit2"></i>
                                     </a>
                                     <a href="" class="text-danger mx-2">
@@ -95,10 +95,10 @@
 
     <div wire:ignore.self class="modal fade" id="pcategory_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdriop="static" data-keybaord="false">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" wire:submit="{{ $isUpdateParentCategoryMode ? '$updateParentCategory()' : 'createParentCategory()'}}">
+            <form class="modal-content" wire:submit="{{ $isUpdateParentCategoryMode ? 'updateParentCategory()' : 'createParentCategory()'}}">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ $isUpdateParentCategoryMode ? 'Update P. Category' : 'Add P. Category' }}
+                        {{ $isUpdateParentCategoryMode ? 'Atualizar P. Category' : 'Adicionar P. Category' }}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
