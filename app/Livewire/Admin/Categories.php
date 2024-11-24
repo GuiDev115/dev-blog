@@ -12,6 +12,10 @@ class Categories extends Component
     public $isUpdateParentCategoryMode = false;
     public $pcategory_id, $pcategory_name;
 
+    protected $listeners = [
+        'updateCategoryOrdering'
+    ];
+
     public function addParentCategory(){
         $this->pcategory_id = null;
         $this->pcategory_name = null;
@@ -61,6 +65,18 @@ class Categories extends Component
             $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao atualizar a categoria pai']);
         }
 }
+
+    public function updateCategoryOrdering($positions){
+        foreach($positions as $position){
+            $index = $position[0];
+            $new_position = $position[1];
+            ParentCategory::where('id', $index)->update([
+                'ordering' => $new_position
+            ]);
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Ordem das categorias pai atualizada com sucesso']);
+        }
+    }
+
     public function showParentCategoryModalForm(){
         $this->resetErrorBag();
         $this->dispatch('showParentCategoryModalForm');
