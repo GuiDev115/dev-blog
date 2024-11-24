@@ -13,7 +13,8 @@ class Categories extends Component
     public $pcategory_id, $pcategory_name;
 
     protected $listeners = [
-        'updateCategoryOrdering'
+        'updateCategoryOrdering',
+        'deleteCategoryAction'
     ];
 
     public function addParentCategory(){
@@ -74,6 +75,24 @@ class Categories extends Component
                 'ordering' => $new_position
             ]);
             $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Ordem das categorias pai atualizada com sucesso']);
+        }
+    }
+
+    public function deleteParentCategory($id)
+    {
+        $this->dispatch('deleteParentCategory', ['id'=>$id]);
+    }
+
+    public function deleteCategoryAction($id)
+    {
+        $pcategory = ParentCategory::findOrFail($id);
+
+        $delete = $pcategory->delete();
+
+        if($delete){
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria pai deletada com sucesso']);
+        }else{
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a categoria pai']);
         }
     }
 

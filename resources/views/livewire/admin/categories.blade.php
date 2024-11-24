@@ -31,7 +31,7 @@
                                     <a href="javascript:;" wire:click="editParentCategory({{$item->id}})"  class="text-primary mx-2">
                                         <i class="dw dw-edit2"></i>
                                     </a>
-                                    <a href="" class="text-danger mx-2">
+                                    <a href="javascript:;" wire:click="deleteParentCategory({{$item->id}})" class="text-danger mx-2">
                                         <i class="dw dw-delete-3"></i>
                                     </a>
                                 </div>
@@ -56,7 +56,7 @@
                         <h4 class="text-blue h4">Categorias</h4>
                     </div>
                     <div class="pull-right">
-                        <a href="" class="btn btn-primary btn-sm"> Add Categoria</a>
+                        <a href="javascript:;" class="btn btn-primary btn-sm"> Add Categoria</a>
                     </div>
                 </div>
                 <div class="table-responsive mt-4">
