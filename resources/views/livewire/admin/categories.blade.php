@@ -68,17 +68,17 @@
                         <th>N. de Posts</th>
                         <th>Ações</th>
                         </thead>
-                        <tbody>
+                        <tbody id="sortable_categories">
 
                         @forelse($categories as $item)
-                        <tr>
+                        <tr data-index="{{ $item->id }}" data-ordering="{{ $item->ordering }}">
                             <td>{{ $item->id }}</td>
-                            <td>{{$item-> name}}</td>
+                            <td>{{ $item-> name}}</td>
                             <td>{{ !is_null($item->parent_category) ? $item-> parent_category->name : ' - '}}</td>
                             <td> }} </td>
                             <td>
                                 <div class="table-actions">
-                                    <a href="" class="text-primary mx-2">
+                                    <a href="javascript:;" wire:click="editCategory({{ $item->id }})" class="text-primary mx-2">
                                         <i class="dw dw-edit2"></i>
                                     </a>
                                     <a href="" class="text-danger mx-2">

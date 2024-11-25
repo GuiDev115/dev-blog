@@ -16,6 +16,7 @@ class Categories extends Component
     public $category_id, $parent = 0, $category_name;
 
     protected $listeners = [
+        'updateParentCategoryOrdering',
         'updateCategoryOrdering',
         'deleteCategoryAction'
     ];
@@ -47,8 +48,6 @@ class Categories extends Component
         }
     }
 
-
-
     public function updateParentCategory(){
         $pcategory = ParentCategory::findOrFail($this->pcategory_id);
         $this->validate([
@@ -70,11 +69,22 @@ class Categories extends Component
         }
 }
 
-    public function updateCategoryOrdering($positions){
+    public function updateParentCategoryOrdering($positions){
         foreach($positions as $position){
             $index = $position[0];
             $new_position = $position[1];
             ParentCategory::where('id', $index)->update([
+                'ordering' => $new_position
+            ]);
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Ordem das categorias pai atualizada com sucesso']);
+        }
+    }
+
+    public function updateCategoryOrdering($positions){
+        foreach($positions as $position){
+            $index = $position[0];
+            $new_position = $position[1];
+            Category::where('id', $index)->update([
                 'ordering' => $new_position
             ]);
             $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Ordem das categorias pai atualizada com sucesso']);
@@ -127,6 +137,37 @@ class Categories extends Component
             $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria criada com sucesso']);
         }else{
             $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao criar a categoria']);
+        }
+    }
+
+    public function editCategory($id){
+        $category = Category::findOrFail($id);
+        $this->category_id = $category->id;
+        $this->category_name = $category->name;
+        $this->parent = $category->parent;
+        $this->isUpdateCategoryMode = true;
+        $this->showCategoryModalForm();
+    }
+
+    public function updateCategory(){
+        $category = Category::findOrFail($this->category_id);
+        $this->validate([
+            'category_name' => 'required|unique:categories,name,'.$category->id
+        ],[
+            'category_name.required' => 'O nome da categoria é obrigatório',
+            'category_name.unique' => 'Essa categoria já existe'
+        ]);
+
+        $category->name = $this->category_name;
+        $category->parent = $this->parent;
+        $category->slug = null;
+        $updated = $category->save();
+
+        if($updated) {
+            $this->hideCategoryModalForm();
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria atualizada com sucesso']);
+            }else {
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao atualizar a categoria']);
         }
     }
 
