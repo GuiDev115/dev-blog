@@ -398,14 +398,14 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ Route::is('admin.dashboard') ? 'active' : '' }}">
 								<span class="micon fa fa-home"></span
                                 ><span class="mtext">Home</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow" {{ Route::is('admin.categories') ? 'active' : '' }}>
 								<span class="micon fa fa-list"></span
                                 ><span class="mtext">Categorias</span>
                     </a>
@@ -441,7 +441,7 @@
                 <li>
                     <a
                         href="{{ route('admin.profile')}}"
-                        class="dropdown-toggle no-arrow"
+                        class="dropdown-toggle no-arrow {{ Route::is('admin.profile') ? 'active' : '' }}"
                     >
                         <span class="micon fa fa-user-circle"></span>
                         <span class="mtext"
@@ -453,8 +453,7 @@
                 <li>
                     <a
                         href="{{ route('admin.settings')}}"
-                        target="_blank"
-                        class="dropdown-toggle no-arrow"
+                        class="dropdown-toggle no-arrow {{ Route::is('admin.settings') ? 'active' : '' }}"
                     >
                         <span class="micon fa fa-cogs"></span>
                         <span class="mtext"
