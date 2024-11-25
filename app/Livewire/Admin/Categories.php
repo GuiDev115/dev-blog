@@ -18,7 +18,8 @@ class Categories extends Component
     protected $listeners = [
         'updateParentCategoryOrdering',
         'updateCategoryOrdering',
-        'deleteCategoryAction'
+        'deleteCategoryAction',
+        'deleteParentCategoryAction'
     ];
 
     public function addParentCategory(){
@@ -91,6 +92,11 @@ class Categories extends Component
         }
     }
 
+    public function deleteCategory($id)
+    {
+        $this->dispatch('deleteCategory', ['id'=>$id]);
+    }
+
     public function deleteParentCategory($id)
     {
         $this->dispatch('deleteParentCategory', ['id'=>$id]);
@@ -98,14 +104,25 @@ class Categories extends Component
 
     public function deleteCategoryAction($id)
     {
-        $pcategory = ParentCategory::findOrFail($id);
+        $category = Category::findOrFail($id);
+        $delete = $category->delete();
 
+        if($delete){
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria deletada com sucesso']);
+        }else{
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a categoria']);
+        }
+    }
+
+    public function deleteParentCategoryAction($id)
+    {
+        $pcategory = ParentCategory::findOrFail($id);
         $delete = $pcategory->delete();
 
         if($delete){
-            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria pai deletada com sucesso']);
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria Pai deletada com sucesso']);
         }else{
-            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a categoria pai']);
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a Categoria Pai']);
         }
     }
 
