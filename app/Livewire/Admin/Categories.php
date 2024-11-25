@@ -12,6 +12,9 @@ class Categories extends Component
     public $isUpdateParentCategoryMode = false;
     public $pcategory_id, $pcategory_name;
 
+    public $isUpdateCategoryMode = false;
+    public $category_id, $parent = 0, $category_name;
+
     protected $listeners = [
         'updateCategoryOrdering',
         'deleteCategoryAction'
@@ -96,6 +99,37 @@ class Categories extends Component
         }
     }
 
+    public function addCategory()
+    {
+        $this->category_id = null;
+        $this->category_name = null;
+        $this->parent = 0;
+        $this->isUpdateCategoryMode = false;
+        $this->showCategoryModalForm();
+    }
+
+    public function createCategory()
+    {
+        $this->validate([
+            'category_name' => 'required|unique:categories,name'
+        ],[
+            'category_name.required' => 'O nome da categoria é obrigatório',
+            'category_name.unique' => 'Essa categoria já existe'
+        ]);
+
+        $category = new Category();
+        $category->name = $this->category_name;
+        $category->parent = $this->parent;
+        $saved = $category->save();
+
+        if($saved) {
+            $this->hideCategoryModalForm();
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria criada com sucesso']);
+        }else{
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao criar a categoria']);
+        }
+    }
+
     public function showParentCategoryModalForm(){
         $this->resetErrorBag();
         $this->dispatch('showParentCategoryModalForm');
@@ -115,10 +149,25 @@ class Categories extends Component
         $this->showParentCategoryModalForm();
     }
 
+    public function showCategoryModalForm()
+    {
+        $this->resetErrorBag();
+        $this->dispatch('showCategoryModalForm');
+    }
+
+    public function hideCategoryModalForm()
+    {
+        $this->dispatch('hideCategoryModalForm');
+        $this->isUpdateCategoryMode = false;
+        $this->category_id =  $this->category_name = null;
+        $this->parent = 0;
+    }
+
     public function render()
     {
         return view('livewire.admin.categories', [
-            'pcategories' => ParentCategory::orderBy('ordering','asc')->get()
+            'pcategories' => ParentCategory::orderBy('ordering','asc')->get(),
+            'categories' => Category::orderBy('name','asc')->get()
         ]);
     }
 }

@@ -25,7 +25,7 @@
                         <tr data-index="{{ $item->id }}" data-ordering="{{ $item->ordering}}">
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td> - </td>
+                            <td> {{ $item->children-> count() }} </td>
                             <td>
                                 <div class="table-actions">
                                     <a href="javascript:;" wire:click="editParentCategory({{$item->id}})"  class="text-primary mx-2">
@@ -56,7 +56,7 @@
                         <h4 class="text-blue h4">Categorias</h4>
                     </div>
                     <div class="pull-right">
-                        <a href="javascript:;" class="btn btn-primary btn-sm"> Add Categoria</a>
+                        <a href="javascript:;" wire:click="addCategory()" class="btn btn-primary btn-sm"> Add Categoria</a>
                     </div>
                 </div>
                 <div class="table-responsive mt-4">
@@ -69,11 +69,13 @@
                         <th>Ações</th>
                         </thead>
                         <tbody>
+
+                        @forelse($categories as $item)
                         <tr>
-                            <td>1</td>
-                            <td>P. Cat 1</td>
-                            <td>Any</td>
-                            <td>4</td>
+                            <td>{{ $item->id }}</td>
+                            <td>{{$item-> name}}</td>
+                            <td>{{ !is_null($item->parent_category) ? $item-> parent_category->name : ' - '}}</td>
+                            <td> }} </td>
                             <td>
                                 <div class="table-actions">
                                     <a href="" class="text-primary mx-2">
@@ -85,6 +87,13 @@
                                 </div>
                             </td>
                         </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <span class="text-danger">Nenhum item encontrado!</span>
+                                </td>
+                            </tr>
+                        @endforelse
                     </table>
                 </div>
             </div>
@@ -127,4 +136,53 @@
             </form>
         </div>
     </div>
+
+
+    <div wire:ignore.self class="modal fade" id="category_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdriop="static" data-keybaord="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content" wire:submit="{{ $isUpdateCategoryMode ? 'updateCategory()' : 'createCategory()'}}">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        {{ $isUpdateCategoryMode ? 'Atualiza Category' : 'Adicionar Category' }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if($isUpdateCategoryMode)
+                        <input type="hidden" wire:model="category_id">
+                    @endif
+                    <div class="form-group">
+                        <label for=""><b>Categoria Pai</b>:</label>
+                        <select wire:model="parent" class="custom-select">
+                        <option value="0">Não Categorizado</option>
+                        @foreach($pcategories as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                        </select>
+                            @error('parent')
+                            <span class="text-danger ml-1">{{ $message }}</span>
+                            @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for=""><b>Nome Categoria</b></label>
+                        <input type="text" class="form-control" wire:model="category_name" placeholder="Entre com o nome da categoria aqui...">
+                        @error('category_name')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Fechar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        {{ $isUpdateCategoryMode ? 'Atualizar' : 'Adicionar' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
