@@ -403,13 +403,15 @@
                                 ><span class="mtext">Home</span>
                     </a>
                 </li>
-
+                @if (auth()->user()->type == 'superAdmin')
                 <li>
                     <a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow" {{ Route::is('admin.categories') ? 'active' : '' }}>
-								<span class="micon fa fa-list"></span
-                                ><span class="mtext">Categorias</span>
-                    </a>
-                </li>
+                        <span class="micon fa fa-list"></span
+                        <span class="mtext">Categorias</span>
+                            </a>
+                        </li>
+                @endif
+
 
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -421,6 +423,8 @@
                         <li><a href="">Posts</a></li>
                     </ul>
                 </li>
+
+                @if (auth()->user()->type == 'superAdmin')
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
 								<span class="micon fa fa-shopping-bag"></span
@@ -431,6 +435,13 @@
                         <li><a href="">Todos Produto</a></li>
                     </ul>
                 </li>
+                @endif
+                <li>
+                    <a href="invoice.html" class="dropdown-toggle no-arrow">
+                        <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Invoice</span>
+                    </a>
+                </li>
+
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
@@ -450,6 +461,8 @@
                     </a>
                 </li>
 
+
+                @if (auth()->user()->type == 'superAdmin')
                 <li>
                     <a
                         href="{{ route('admin.settings')}}"
@@ -461,6 +474,7 @@
                         </span>
                     </a>
                 </li>
+                @endif
             </ul>
         </div>
     </div>
