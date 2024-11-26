@@ -28,13 +28,13 @@
         rel="stylesheet"
     />
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css" />
+    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/core.css"/>
     <link
         rel="stylesheet"
         type="text/css"
         href="/back/vendors/styles/icon-font.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
+    <link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css"/>
     <link rel="stylesheet" href="/extra-assets/jquery-ui-1.14.1/jquery-ui.min.css">
     <link rel="stylesheet" href="/extra-assets/jquery-ui-1.14.1/jquery-ui.structure.min.css">
     <link rel="stylesheet" href="/extra-assets/jquery-ui-1.14.1/jquery-ui.theme.min.css">
@@ -138,7 +138,7 @@
                         <ul>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/img.jpg" alt="" />
+                                    <img src="/back/vendors/images/img.jpg" alt=""/>
                                     <h3>John Doe</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -148,7 +148,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/photo1.jpg" alt="" />
+                                    <img src="/back/vendors/images/photo1.jpg" alt=""/>
                                     <h3>Lea R. Frith</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -158,7 +158,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/photo2.jpg" alt="" />
+                                    <img src="/back/vendors/images/photo2.jpg" alt=""/>
                                     <h3>Erik L. Richards</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -168,7 +168,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/photo3.jpg" alt="" />
+                                    <img src="/back/vendors/images/photo3.jpg" alt=""/>
                                     <h3>John Doe</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -178,7 +178,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/photo4.jpg" alt="" />
+                                    <img src="/back/vendors/images/photo4.jpg" alt=""/>
                                     <h3>Renee I. Hansen</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -188,7 +188,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/back/vendors/images/img.jpg" alt="" />
+                                    <img src="/back/vendors/images/img.jpg" alt=""/>
                                     <h3>Vicki M. Coleman</h3>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -383,7 +383,8 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="/">
-            <img src="/images/site/{{ isset (settings()->site_logo) ? settings()->site_logo : '' }}" alt="" class="dark-logo site_logo" />
+            <img src="/images/site/{{ isset (settings()->site_logo) ? settings()->site_logo : '' }}" alt=""
+                 class="dark-logo site_logo"/>
             <img
                 src="/images/site/{{ isset (settings()->site_logo) ? settings()->site_logo : '' }}"
                 alt=""
@@ -398,43 +399,47 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="dropdown-toggle no-arrow {{ Route::is('admin.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="dropdown-toggle no-arrow {{ Route::is('admin.dashboard') ? 'active' : '' }}">
 								<span class="micon fa fa-home"></span
                                 ><span class="mtext">Home</span>
                     </a>
                 </li>
                 @if (auth()->user()->type == 'superAdmin')
-                <li>
-                    <a href="{{ route('admin.categories') }}" class="dropdown-toggle no-arrow" {{ Route::is('admin.categories') ? 'active' : '' }}>
-                        <span class="micon fa fa-list"></span
-                        <span class="mtext">Categorias</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="{{ route('admin.categories') }}"
+                           class="dropdown-toggle no-arrow" {{ Route::is('admin.categories') ? 'active' : '' }}>
+                            <span class="micon fa fa-list"></span
+                            <span class="mtext">Categorias</span>
+                        </a>
+                    </li>
                 @endif
 
 
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="javascript:;"
+                       class="dropdown-toggle {{ Route::is('admin.add_post') || Route::is('admin.posts') ? 'active' : '' }}">
 								<span class="micon fa fa-newspaper-o"></span
                                 ><span class="mtext"> Posts </span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="">Novo</a></li>
-                        <li><a href="">Posts</a></li>
+                        <li><a href=" {{ route('admin.add_post') }}"
+                               class="{{ Route::is('admin.add_post') ? 'active' : '' }}">Novo</a></li>
+                        <li><a href="{{ route('admin.posts') }}" class="{{ Route::is ('admin.posts') ? 'active' : '' }}">Posts</a></li>
                     </ul>
                 </li>
 
                 @if (auth()->user()->type == 'superAdmin')
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
 								<span class="micon fa fa-shopping-bag"></span
                                 ><span class="mtext">Shop</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="">Novo Produto</a></li>
-                        <li><a href="">Todos Produto</a></li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="">Novo Produto</a></li>
+                            <li><a href="">Todos Produto</a></li>
+                        </ul>
+                    </li>
                 @endif
                 <li>
                     <a href="invoice.html" class="dropdown-toggle no-arrow">
@@ -463,17 +468,17 @@
 
 
                 @if (auth()->user()->type == 'superAdmin')
-                <li>
-                    <a
-                        href="{{ route('admin.settings')}}"
-                        class="dropdown-toggle no-arrow {{ Route::is('admin.settings') ? 'active' : '' }}"
-                    >
-                        <span class="micon fa fa-cogs"></span>
-                        <span class="mtext"
-                        >Geral
+                    <li>
+                        <a
+                            href="{{ route('admin.settings')}}"
+                            class="dropdown-toggle no-arrow {{ Route::is('admin.settings') ? 'active' : '' }}"
+                        >
+                            <span class="micon fa fa-cogs"></span>
+                            <span class="mtext"
+                            >Geral
                         </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>
