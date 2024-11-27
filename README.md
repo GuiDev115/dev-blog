@@ -10,8 +10,8 @@ Dev Blog é uma aplicação web desenvolvida com Laravel. O objetivo do projeto 
 - **Laravel**: Framework PHP utilizado para o desenvolvimento da aplicação.
 - **JavaScript**: Linguagem de programação utilizada no frontend.
 - **SweetAlert2**: Biblioteca JavaScript para exibição de alertas bonitos.
+- **MYSQL**: Banco de dados utilizado no projeto.
 - **Composer**: Gerenciador de dependências para PHP.
-- **NPM**: Gerenciador de pacotes para JavaScript.
 - **MailTrap**: Serviço de envio de e-mails para desenvolvimento, use sua API no .env.
 
 ## Funcionalidades
@@ -23,42 +23,31 @@ Dev Blog é uma aplicação web desenvolvida com Laravel. O objetivo do projeto 
 
 ## Instalação
 
-1. Clone o repositório:
+1. Clone o repositório e acesse o diretório do projeto:
     ```sh
-    git clone https://github.com/seu-usuario/dev-blog.git
+    git clone https://github.com/seu-usuario/dev-blog.git && cd dev-blog
     ```
 
-2. Navegue até o diretório do projeto:
-    ```sh
-    cd dev-blog
-    ```
-
-3. Instale as dependências do PHP com o Composer:
+2. Instale as dependências do PHP com o Composer:
     ```sh
     composer install
     ```
 
-4. Instale as dependências do JavaScript com o NPM:
-    ```sh
-    npm install
-    ```
-
-5. Configure o arquivo `.env` com suas credenciais de banco de dados.
-
-6. Execute as migrações do banco de dados:
+3. Execute as migrações do banco de dados:
     ```sh
     php artisan migrate
     ```
 
-7. Inicie o servidor de desenvolvimento:
+4. Inicie o servidor de desenvolvimento:
     ```sh
     php artisan serve
     ```
+Obs.: Lembre-se de configurar o arquivo `.env` com as informações do seu banco de dados, e também de configurar o serviço de envio de e-mails. (Utilizei o **mailTrap** no desenvolvimento desse projeto).
 
 ## Uso
 
 Acesse a aplicação no navegador através do endereço `http://localhost:8000`.
-
+    
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
