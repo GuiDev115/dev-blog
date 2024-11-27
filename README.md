@@ -1,4 +1,6 @@
-# Dev Blog
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/75cdc979-0f5f-4d97-a61d-88779c491ae2" alt="DevBlog Logo" width="500" style="max-width: 100%; height: auto;">
+</p>
 
 ## Sobre o Projeto
 
