@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ParentCategory;
 use App\Models\Category;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -36,5 +37,14 @@ class PostController extends Controller
         ];
 
         return view('back.pages.add_post', $data);
+    }
+
+    public function createPost(Request $request){
+        $request->validate([
+            'title'=>'required|unique:posts,title',
+            'content'=>'required',
+            'category'=>'required|exists::categories,id',
+            'featured_image'=>'required|mimes:png,jpg,jpeg|max:2048'
+        ]);
     }
 }

@@ -62,7 +62,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for=""><b>Categoria do Post</b></label>
-                            <select name="category" id="" class="custom-select form-control">
+                            <select name="category" id="" class="custom-select form-control" >
+                                <option value="">Selecione uma categoria</option>
                                 {!! $categories_html !!}
                             </select>
                             <span class="text-danger error-text category_error"></span>
@@ -138,38 +139,46 @@
                 $.ajax({
                     url: $(form).attr('action'),
                     method: $(form).attr('method'),
-                    data: new FormData(form),
+                    data: formdata,
                     processData: false,
                     contentType: false,
-                    beforeSend: function(){},
-                    success: function(data){
-                        if(data.status == 1){
+                    dataType: 'json',
+                    beforeSend: function(){
+                        $(form).find('span.text-danger').text('');
+                    },
+                    success: function(data) {
+                        if(data.status ==1 ) {
                             $(form)[0].reset();
+                            $('img#featured_image_preview').attr('src', '');
+                            $('input[name="tags"]').tagsinput('removeAll');
                             $().notifa({
-                                vers: 2,
-                                cssClass: 'success',
-                                html: data.message,
-                                time: 2500,
+                                type: 'success',
+                                text: data.message,
+                                delay: 2500
                             });
-                            $('#featured_image_preview').attr('src', '/'+data.image_path);
-                        } else {
+                        }else{
                             $().notifa({
-                                vers: 2,
-                                cssClass: 'error',
-                                html: data.message,
-                                time: 2500,
+                                type: 'error',
+                                text: data.message,
+                                delay: 2500
                             });
                         }
                     },
                     error: function(xhr, status, error){
-                        let err = JSON.parse(xhr.responseText);
-                        $.each(err.errors, function(key, value){
-                            errorElement.text(value);
-                        });
+                        let response = JSON.parse(xhr.responseText);
+                        if(response.errors){
+                            $.each(response.errors, function(key, value){
+                                $(form).find('span.'+key+'_error').text(value[0]);
+                            });
+                        }
                     }
                 });
-            } else {
-                errorElement.text('Selecione uma imagem.');
+            }else{
+                $().notifa({
+                    type: 'error',
+                    text: 'Por favor, selecione uma imagem em destaque.',
+                    delay: 2500
+                });
             }
         });
     </script>
