@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         DB::table('users')->insert([
-            'id' => 1,
             'name' => 'Super Admin',
             'username' => 'admin',
             'email' => 'admin@devblog.com',

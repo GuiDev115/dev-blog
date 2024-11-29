@@ -75,10 +75,103 @@
                         <div class="d-block mb-3" style="max-width: 250px;">
                             <img src="" alt="" class="img-thumbnail" id="featured_image_preview">
                         </div>
+                        <div class="form-group">
+                            <label for=""><b>Tags</b>:</label>
+                            <input type="text" class="form-control" name="tags" data-role="tagsinput">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for=""><b>Visibilidade</b>:</label>
+                            <div class="custom-control custom-radio mb-5">
+                                <input type="radio" name="visibility" id="customRadio1" class="custom-control-input" value="1" checked>
+                                <label for="customRadio1" class="custom-control-label"> Publico </label>
+                            </div>
+                            <div class="custom-control custom-radio mb-5">
+                                <input type="radio" name="visibility" id="customRadio2" class="custom-control-input" value="0">
+                                <label for="customRadio2" class="custom-control-label"> Privado </label>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary"> Criar Post</button>
+        </div>
     </form>
 
 @endsection
+
+@push('stylesheets')
+    <link rel="stylesheet" href="/back/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+@endpush
+
+@push('scripts')
+    <script src="/back/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>>
+
+    <script>
+        document.querySelector('input[type="file"][name="featured_image"]').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.querySelector('#featured_image_preview');
+            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg"];
+
+            if (file && allowedExtensions.includes(file.type)) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                alert('Tipo de arquivo inválido. Apenas JPG, JPEG, e PNG são permitidos.');
+            }
+        });
+
+        $('#addPostForm').submit(function(e){
+            e.preventDefault();
+            let form = this;
+            let inputVal = $(form).find('input[type="file"]').val();
+            let errorElement = $(form).find('span.text-danger');
+            errorElement.text('');
+
+            if(inputVal.length > 0){
+                $.ajax({
+                    url: $(form).attr('action'),
+                    method: $(form).attr('method'),
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function(){},
+                    success: function(data){
+                        if(data.status == 1){
+                            $(form)[0].reset();
+                            $().notifa({
+                                vers: 2,
+                                cssClass: 'success',
+                                html: data.message,
+                                time: 2500,
+                            });
+                            $('#featured_image_preview').attr('src', '/'+data.image_path);
+                        } else {
+                            $().notifa({
+                                vers: 2,
+                                cssClass: 'error',
+                                html: data.message,
+                                time: 2500,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        let err = JSON.parse(xhr.responseText);
+                        $.each(err.errors, function(key, value){
+                            errorElement.text(value);
+                        });
+                    }
+                });
+            } else {
+                errorElement.text('Selecione uma imagem.');
+            }
+        });
+    </script>
+
+@endpush

@@ -89,6 +89,7 @@
             }
         });
 
+        // Favicon upload and preview
         document.querySelector('input[type="file"][name="site_favicon"]').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const preview = document.querySelector('#preview_site_favicon');

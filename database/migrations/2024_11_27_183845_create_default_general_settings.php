@@ -11,8 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('users')->insert([
-            'id' => 1,
+        DB::table('general_settings')->insert([
             'site_title' => 'DevBlog - Blog de Tecnologia',
             'site_email' => 'seuSite@devblog.com',
             'site_phone' => '(XX) 23456-7890',
