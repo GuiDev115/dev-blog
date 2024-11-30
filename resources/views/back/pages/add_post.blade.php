@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for=""><b>Conteudo</b>:</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control" placeholder="Entre com o conteudo do post..."></textarea>
+                            <textarea name="contents" id="" cols="30" rows="10" class="form-control" placeholder="Entre com o conteudo do post..."></textarea>
                             <span class="text-danger error-text content_error"></span>
                         </div>
                     </div>
@@ -114,94 +114,67 @@
     <script>
         document.querySelector('input[type="file"][name="featured_image"]').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            const preview = document.querySelector('#featured_image_preview');
-            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg"];
+            const preview = document.querySelector('img#featured_image_preview');
+            const allowedExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
 
-            if (file && allowedExtensions.includes(file.type)) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
+            if (file) {
+                if (allowedExtensions.includes(file.type)) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
                 }
-                reader.readAsDataURL(file);
             } else {
-                alert('Tipo de arquivo inválido. Apenas JPG, JPEG, e PNG são permitidos.');
+                alert('No file selected.');
             }
         });
 
-        $('#addPostForm').submit(function(e){
-            e.preventDefault();
-            let form = this;
-            let errorElement = $(form).find('span.text-danger');
-            errorElement.text('');
+        $('#addPostForm').on('submit', function(e){
+           e.preventDefault();
+              var form = this;
+              var formData = new FormData(form);
 
-            let title = $(form).find('input[name="title"]').val().trim();
-            let content = $(form).find('textarea[name="content"]').val().trim();
-            let category = $(form).find('select[name="category"]').val().trim();
-            let featuredImage = $(form).find('input[type="file"][name="featured_image"]').val().trim();
-
-            let hasError = false;
-
-            if (!title) {
-                $(form).find('span.title_error').text('O título é obrigatório.');
-                hasError = true;
-            }
-            if (!content) {
-                $(form).find('span.content_error').text('O conteúdo é obrigatório.');
-                hasError = true;
-            }
-            if (!category) {
-                $(form).find('span.category_error').text('A categoria é obrigatória.');
-                hasError = true;
-            }
-            if (!featuredImage) {
-                $(form).find('span.featured_image_error').text('Selecione uma imagem.');
-                hasError = true;
-            }
-
-            if (hasError) {
-                return;
-            }
-
-            let formData = new FormData(form);
-
-            $.ajax({
-                url: $(form).attr('action'),
-                method: $(form).attr('method'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                beforeSend: function(){
-                    errorElement.text('');
-                },
-                success: function(data) {
-                    if(data.status == 1) {
-                        $(form)[0].reset();
-                        $('#featured_image_preview').attr('src', '');
-                        $('input[name="tags"]').tagsinput('removeAll');
-                        $().notifa({
-                            type: 'success',
-                            text: data.message,
-                            delay: 2500
-                        });
-                    } else {
-                        $().notifa({
-                            type: 'error',
-                            text: data.message,
-                            delay: 2500
+                $.ajax({
+                    url: $(form).attr('action'),
+                    method: $(form).attr('method'),
+                    data: formData,
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforeSend:function(){
+                        $(form).find('span.error-text').text('');
+                    },
+                    success:function(data){
+                        if(data.status == 1) {
+                            $(form)[0].reset();
+                            $('img#featured_image_preview').attr('src', '');
+                            $('input[name="tags"]').tagsinput('removeAll');
+                            Swal.fire({
+                                title: 'Success!',
+                                text: data.msg,
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                            });
+                        }else{
+                            Swal.fire({
+                                title: 'Error!',
+                                text: data.msg,
+                                icon: 'error',
+                                confirmButtonText: 'Ok'
+                            });
+                        }
+                    },
+                    error:function(data){
+                        $.each(data.responseJSON.errors, function(prefix, val){
+                            $(form).find('span.'+prefix+'_error').text(val[0]);
                         });
                     }
-                },
-                error: function(xhr, status, error){
-                    let response = JSON.parse(xhr.responseText);
-                    if(response.errors){
-                        $.each(response.errors, function(key, value){
-                            $(form).find('span.'+key+'_error').text(value[0]);
-                        });
-                    }
-                }
-            });
+                });
         });
+
     </script>
 
 @endpush

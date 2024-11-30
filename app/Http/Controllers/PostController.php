@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\ParentCategory;
 use App\Models\Category;
@@ -42,39 +41,43 @@ class PostController extends Controller
 
     public function createPost(Request $request){
         $request->validate([
-            'title'=>'required|unique:posts,title',
-            'content'=>'required',
-            'category'=>'required|exists::categories,id',
-            'featured_image'=>'required|mimes:png,jpg,jpeg|max:2048'
+            'title' => 'required|unique:posts,title',
+            'contents' => 'required',
+            'category' => 'required|exists:categories,id',
+            'featured_image' => 'required|mimes:png,jpg,jpeg|max:1024'
         ]);
 
         if($request->hasFile('featured_image')){
             $path = "images/posts/";
             $file = $request->file('featured_image');
-            $file_name = time().'_'.$file->getClientOriginalName();
-            $new_filename = time().'_'.$file_name;
+            $filename = $file->getClientOriginalName();
+            $new_filename = time().'_'.$filename;
 
-            $upload = $file->move($path, $new_filename);
+            $upload = $file->move(public_path($path), $new_filename);
 
             if($upload){
-                $post = new Post();
-                $post->author_id = auth()->user()->id;
-                $post->category = $request->category;
-                $post->title = $request->title;
-                $post->content = $request->content;
-                $post->featured_image = $new_filename;
-                $post->tags = $request->tags;
-                $post->meta_keywords = $request->meta_keywords;
-                $post->meta_description = $request->meta_description;
-                $post->visibility = $request->visibility;
-                $saved = $post->save();
+                $post = Post::create([
+                    'author_id' => auth()->user()->id,
+                    'category' => $request->category,
+                    'title' => $request->title,
+                    'contents' => $request->contents, // Corrigido de 'contents' para 'content'
+                    'featured_image' => $new_filename,
+                    'tags' => $request->tags,
+                    'meta_keywords' => $request->meta_keywords,
+                    'meta_description' => $request->meta_description,
+                    'visibility' => $request->visibility,
+                ]);
 
-                if($saved){
-                    return response()->json(['status'=>0, 'message'=>'Algo de errado aconteceu ao salvar o post']);
+                if ($post) {
+                    return response()->json(['status' => 1, 'message' => 'Post criado com sucesso!']);
+                } else {
+                    return response()->json(['status' => 0, 'message' => 'Erro ao criar post!']);
                 }
             } else {
-                return response()->json(['status'=>'error', 'message'=>'Erro ao fazer upload da imagem']);
+                return response()->json(['status' => 0, 'message' => 'Erro ao fazer upload da imagem!']);
             }
+        } else {
+            return response()->json(['status' => 0, 'message' => 'Imagem em destaque é obrigatória!']);
         }
     }
 }

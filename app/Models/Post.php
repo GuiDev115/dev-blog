@@ -16,7 +16,7 @@ class Post extends Model
         'category',
         'title',
         'slug',
-        'content',
+        'contents',
         'featured_image',
         'tags',
         'meta_keywords',

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('category');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->text('contents');
             $table->string('featured_image');
             $table->string('tags')->nullable();
             $table->string('meta_keywords')->nullable();

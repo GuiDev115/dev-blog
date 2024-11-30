@@ -12,6 +12,7 @@ Route::get('/', function () {
 Route::view('/example-page', 'example-page');
 Route::view('/example-auth', 'example-auth');
 
+// Admin Routes
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::middleware(['guest','preventBackHistory'])->group(function(){
         Route::controller(AuthController::class)->group(function(){
@@ -24,6 +25,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         });
     });
 
+    // Authenticated Routes
     Route::middleware(['auth','preventBackHistory'])->group(function(){
         Route::controller(AdminController::class)->group(function(){
             Route::get('/dashboard', 'adminDashboard')->name('dashboard');
@@ -41,8 +43,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         Route::controller(PostController::class)->group(function(){
 
-        Route::get('/posts/new', 'addPost')->name('add_post');
-        Route::post('/posts/create', 'createPost')->name('create_post');
+        Route::get('/post/new', 'addPost')->name('add_post');
+        Route::post('/post/create', 'createPost')->name('create_post');
         Route::get('/posts', 'allPosts')->name('posts');
         });
     });
