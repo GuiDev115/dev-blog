@@ -131,55 +131,76 @@
         $('#addPostForm').submit(function(e){
             e.preventDefault();
             let form = this;
-            let inputVal = $(form).find('input[type="file"]').val();
             let errorElement = $(form).find('span.text-danger');
             errorElement.text('');
 
-            if(inputVal.length > 0){
-                $.ajax({
-                    url: $(form).attr('action'),
-                    method: $(form).attr('method'),
-                    data: formdata,
-                    processData: false,
-                    contentType: false,
-                    dataType: 'json',
-                    beforeSend: function(){
-                        $(form).find('span.text-danger').text('');
-                    },
-                    success: function(data) {
-                        if(data.status ==1 ) {
-                            $(form)[0].reset();
-                            $('img#featured_image_preview').attr('src', '');
-                            $('input[name="tags"]').tagsinput('removeAll');
-                            $().notifa({
-                                type: 'success',
-                                text: data.message,
-                                delay: 2500
-                            });
-                        }else{
-                            $().notifa({
-                                type: 'error',
-                                text: data.message,
-                                delay: 2500
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error){
-                        let response = JSON.parse(xhr.responseText);
-                        if(response.errors){
-                            $.each(response.errors, function(key, value){
-                                $(form).find('span.'+key+'_error').text(value[0]);
-                            });
-                        }
-                    }
-                });
-            }else{
-                $().notifa({
-                    type: 'error',
-                    text: 'Por favor, selecione uma imagem em destaque.',
-                    delay: 2500
-                });
+            let title = $(form).find('input[name="title"]').val().trim();
+            let content = $(form).find('textarea[name="content"]').val().trim();
+            let category = $(form).find('select[name="category"]').val().trim();
+            let featuredImage = $(form).find('input[type="file"][name="featured_image"]').val().trim();
+
+            let hasError = false;
+
+            if (!title) {
+                $(form).find('span.title_error').text('O título é obrigatório.');
+                hasError = true;
             }
+            if (!content) {
+                $(form).find('span.content_error').text('O conteúdo é obrigatório.');
+                hasError = true;
+            }
+            if (!category) {
+                $(form).find('span.category_error').text('A categoria é obrigatória.');
+                hasError = true;
+            }
+            if (!featuredImage) {
+                $(form).find('span.featured_image_error').text('Selecione uma imagem.');
+                hasError = true;
+            }
+
+            if (hasError) {
+                return;
+            }
+
+            let formData = new FormData(form);
+
+            $.ajax({
+                url: $(form).attr('action'),
+                method: $(form).attr('method'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function(){
+                    errorElement.text('');
+                },
+                success: function(data) {
+                    if(data.status == 1) {
+                        $(form)[0].reset();
+                        $('#featured_image_preview').attr('src', '');
+                        $('input[name="tags"]').tagsinput('removeAll');
+                        $().notifa({
+                            type: 'success',
+                            text: data.message,
+                            delay: 2500
+                        });
+                    } else {
+                        $().notifa({
+                            type: 'error',
+                            text: data.message,
+                            delay: 2500
+                        });
+                    }
+                },
+                error: function(xhr, status, error){
+                    let response = JSON.parse(xhr.responseText);
+                    if(response.errors){
+                        $.each(response.errors, function(key, value){
+                            $(form).find('span.'+key+'_error').text(value[0]);
+                        });
+                    }
+                }
+            });
         });
     </script>
 
