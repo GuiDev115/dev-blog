@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for=""><b>Conteudo</b>:</label>
-                            <textarea name="contents" id="" cols="30" rows="10" class="form-control" placeholder="Entre com o conteudo do post..."></textarea>
+                            <textarea name="contents" id="editor" cols="30" rows="10" class="ckeditor form-control" placeholder="Entre com o conteudo do post..."></textarea>
                             <span class="text-danger error-text content_error"></span>
                         </div>
                     </div>
@@ -109,7 +109,13 @@
 @endpush
 
 @push('scripts')
-    <script src="/back/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>>
+    <script src="/back/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            CKEDITOR.replace('editor');
+        });
+    </script>
 
     <script>
         document.querySelector('input[type="file"][name="featured_image"]').addEventListener('change', function(event) {
