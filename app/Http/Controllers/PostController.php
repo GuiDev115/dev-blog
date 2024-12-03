@@ -96,4 +96,12 @@ class PostController extends Controller
             return response()->json(['status' => 0, 'message' => 'Imagem em destaque é obrigatória!']);
         }
     }
+
+    public function allPosts(Request $request){
+        $data = [
+            'pageTitle' => 'Posts',
+        ];
+
+        return view('back.pages.posts', $data);
+    }
 }
