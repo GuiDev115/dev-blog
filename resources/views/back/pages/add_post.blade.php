@@ -131,10 +131,10 @@
                     }
                     reader.readAsDataURL(file);
                 } else {
-                    alert('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+                    alert('Tipo de arquivo invalido. Apenas JPG, JPEG, and PNG são permitidos.');
                 }
             } else {
-                alert('No file selected.');
+                alert('Nenhum Arquivo selecionado');
             }
         });
 

@@ -20,9 +20,9 @@ class PostController extends Controller
         if(count ($pcategories) > 0) {
             foreach ($pcategories as $item) {
                 $categories_html.='<optgroup label="'.$item->name.'">';
-                foreach ($item->children as $category) {
-                    $categories_html.='<option value="'.$category->id.'">'.$category->name.'</option>';
-                }
+                    foreach ($item->children as $category) {
+                        $categories_html.='<option value="'.$category->id.'">'.$category->name.'</option>';
+                    }
                 $categories_html .= '</optgroup>';
             }
         }
@@ -57,9 +57,9 @@ class PostController extends Controller
 
             $upload = $file->move(public_path($path), $new_filename);
 
-            if($upload){
-                $resized_path = $path.'resized/';
-                if(!File::isDirectory($resized_path)){
+            if($upload) {
+                /*$resized_path = $path.'resized/';
+                //if(!File::isDirectory($resized_path)){
                     File::makeDirectory($resized_path, 0777, true, true);
                 }
 
@@ -72,28 +72,28 @@ class PostController extends Controller
                     ->fit(512, 320)
                     ->save($resized_path.'resized_'.$new_filename);
 
-                $post = Post::create([
-                    'author_id' => auth()->user()->id,
-                    'category' => $request->category,
-                    'title' => $request->title,
-                    'contents' => $request->contents, // Corrigido de 'contents' para 'content'
-                    'featured_image' => $new_filename,
-                    'tags' => $request->tags,
-                    'meta_keywords' => $request->meta_keywords,
-                    'meta_description' => $request->meta_description,
-                    'visibility' => $request->visibility,
-                ]);
+                */
+                $post = new Post();
+                $post->author_id = auth()->id();
+                $post->category = $request->category;
+                $post->title = $request->title;
+                $post->contents = $request->contents;
+                $post->featured_image = $new_filename;
+                $post->tags = $request->tags;
+                $post->meta_keywords = $request->meta_keywords;
+                $post->meta_description = $request->meta_description;
+                $post->visibility = $request->visibility;
+                $saved = $post->save();
 
-                if ($post) {
+                if ($saved) {
                     return response()->json(['status' => 1, 'message' => 'Post criado com sucesso!']);
                 } else {
                     return response()->json(['status' => 0, 'message' => 'Erro ao criar post!']);
                 }
-            } else {
+            }else{
+
                 return response()->json(['status' => 0, 'message' => 'Erro ao fazer upload da imagem!']);
             }
-        } else {
-            return response()->json(['status' => 0, 'message' => 'Imagem em destaque é obrigatória!']);
         }
     }
 
