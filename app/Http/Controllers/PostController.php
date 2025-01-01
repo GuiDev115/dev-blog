@@ -42,12 +42,13 @@ class PostController extends Controller
     }
 
     public function createPost(Request $request){
-        $request->validate([
+        /*$request->validate([
             'title' => 'required|unique:posts,title',
             'contents' => 'required',
             'category' => 'required|exists:categories,id',
-            'featured_image' => 'required|mimes:png,jpg,jpeg|max:1024'
+            //'featured_image' => 'required|mimes:png,jpg,jpeg|max:1024'
         ]);
+        */
 
         if($request->hasFile('featured_image')){
             $path = "images/posts/";
@@ -58,8 +59,9 @@ class PostController extends Controller
             $upload = $file->move(public_path($path), $new_filename);
 
             if($upload) {
-                /*$resized_path = $path.'resized/';
-                //if(!File::isDirectory($resized_path)){
+                /*
+                $resized_path = $path.'resized/';
+                if(!File::isDirectory($resized_path)){
                     File::makeDirectory($resized_path, 0777, true, true);
                 }
 
@@ -71,8 +73,8 @@ class PostController extends Controller
                 Image::make($path.$new_filename)
                     ->fit(512, 320)
                     ->save($resized_path.'resized_'.$new_filename);
-
                 */
+
                 $post = new Post();
                 $post->author_id = auth()->id();
                 $post->category = $request->category;
@@ -91,7 +93,6 @@ class PostController extends Controller
                     return response()->json(['status' => 0, 'message' => 'Erro ao criar post!']);
                 }
             }else{
-
                 return response()->json(['status' => 0, 'message' => 'Erro ao fazer upload da imagem!']);
             }
         }

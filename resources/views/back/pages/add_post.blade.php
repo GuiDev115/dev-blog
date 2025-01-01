@@ -113,7 +113,9 @@
     <script src="/ckeditor/ckeditor.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replace('editor');
+            if (CKEDITOR.instances['editor']) {
+                CKEDITOR.instances['editor'].destroy(true);
+            }
         });
     </script>
 
