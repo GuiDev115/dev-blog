@@ -37,7 +37,7 @@
                             <span class="text-danger error-text title_error"></span>
                         </div>
                         <div class="form-group">
-                            <label for=""><b>Conteudo</b>:</label>
+                            <label for=""><b>Conteúdo</b>:</label>
                             <textarea name="contents" id="editor" cols="30" rows="10" class="ckeditor form-control" placeholder="Entre com o conteudo do post..."></textarea>
                             <span class="text-danger error-text content_error"></span>
                         </div>
@@ -111,13 +111,6 @@
 @push('scripts')
     <script src="/back/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (CKEDITOR.instances['editor']) {
-                CKEDITOR.instances['editor'].destroy(true);
-            }
-        });
-    </script>
 
     <script>
         document.querySelector('input[type="file"][name="featured_image"]').addEventListener('change', function(event) {
@@ -141,48 +134,49 @@
         });
 
         $('#addPostForm').on('submit', function(e){
-           e.preventDefault();
-              var form = this;
-              var formData = new FormData(form);
+            e.preventDefault();
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+            var form = this;
+            var formData = new FormData(form);
 
-                $.ajax({
-                    url: $(form).attr('action'),
-                    method: $(form).attr('method'),
-                    data: formData,
-                    processData: false,
-                    dataType: 'json',
-                    contentType: false,
-                    beforeSend:function(){
-                        $(form).find('span.error-text').text('');
-                    },
-                    success:function(data){
-                        if(data.status == 1) {
-                            $(form)[0].reset();
-                            $('img#featured_image_preview').attr('src', '');
-                            $('input[name="tags"]').tagsinput('removeAll');
-                            Swal.fire({
-                                title: 'Success!',
-                                text: data.msg,
-                                icon: 'success',
-                                confirmButtonText: 'Ok'
-                            });
-                        }else{
-                            Swal.fire({
-                                title: 'Error!',
-                                text: data.msg,
-                                icon: 'error',
-                                confirmButtonText: 'Ok'
-                            });
-                        }
-                    },
-                    error:function(data){
-                        $.each(data.responseJSON.errors, function(prefix, val){
-                            $(form).find('span.'+prefix+'_error').text(val[0]);
+            $.ajax({
+                url: $(form).attr('action'),
+                method: $(form).attr('method'),
+                data: formData,
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend:function(){
+                    $(form).find('span.error-text').text('');
+                },
+                success:function(data){
+                    if(data.status == 1) {
+                        $(form)[0].reset();
+                        $('img#featured_image_preview').attr('src', '');
+                        $('input[name="tags"]').tagsinput('removeAll');
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.msg,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    }else{
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.msg,
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
                         });
                     }
-                });
+                },
+                error:function(data){
+                    $.each(data.responseJSON.errors, function(prefix, val){
+                        $(form).find('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+            });
         });
-
     </script>
-
 @endpush

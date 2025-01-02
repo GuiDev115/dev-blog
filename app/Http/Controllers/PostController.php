@@ -42,21 +42,24 @@ class PostController extends Controller
     }
 
     public function createPost(Request $request){
-        /*$request->validate([
+        $request->validate([
             'title' => 'required|unique:posts,title',
-            'contents' => 'required',
             'category' => 'required|exists:categories,id',
-            //'featured_image' => 'required|mimes:png,jpg,jpeg|max:1024'
+            'featured_image' => 'required|mimes:png,jpg,jpeg|max:2048'
         ]);
-        */
 
         if($request->hasFile('featured_image')){
             $path = "images/posts/";
+
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
+
             $file = $request->file('featured_image');
             $filename = $file->getClientOriginalName();
             $new_filename = time().'_'.$filename;
 
-            $upload = $file->move(public_path($path), $new_filename);
+            $upload = $file->move($path, $new_filename);
 
             if($upload) {
                 /*
@@ -73,6 +76,7 @@ class PostController extends Controller
                 Image::make($path.$new_filename)
                     ->fit(512, 320)
                     ->save($resized_path.'resized_'.$new_filename);
+
                 */
 
                 $post = new Post();
