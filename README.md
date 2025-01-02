@@ -15,6 +15,7 @@ Dev Blog é uma aplicação web desenvolvida com Laravel. O objetivo do projeto 
 - **MYSQL**: Banco de dados utilizado no projeto.
 - **Composer**: Gerenciador de dependências para PHP.
 - **MailTrap**: Serviço de envio de e-mails para desenvolvimento, use sua API no .env.
+- **PHP GD**: Extensão PHP para manipulação de imagens.
 
 ## Funcionalidades
 

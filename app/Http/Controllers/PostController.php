@@ -62,7 +62,7 @@ class PostController extends Controller
             $upload = $file->move($path, $new_filename);
 
             if($upload) {
-                /*
+
                 $resized_path = $path.'resized/';
                 if(!File::isDirectory($resized_path)){
                     File::makeDirectory($resized_path, 0777, true, true);
@@ -77,7 +77,7 @@ class PostController extends Controller
                     ->fit(512, 320)
                     ->save($resized_path.'resized_'.$new_filename);
 
-                */
+
 
                 $post = new Post();
                 $post->author_id = auth()->id();
