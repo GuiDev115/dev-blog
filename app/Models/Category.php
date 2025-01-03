@@ -27,4 +27,8 @@ class Category extends Model
         //return $this->hasOne(ParentCategory::class, 'id','parent');
         return $this->belongsTo(ParentCategory::class, 'parent', 'id');
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class, 'category', 'id');
+    }
 }
