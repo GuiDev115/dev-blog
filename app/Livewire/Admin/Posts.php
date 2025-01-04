@@ -15,7 +15,38 @@ class Posts extends Component
     public $perPage = 5;
     public $categories_html;
 
+    public $search = null;
+    public $author = null;
+    public $category = null;
+    public $visibility = null;
+    public $sortBy = 'desc';
+    public $post_visibility;
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'author' => ['except' => ''],
+        'category' => ['except' => ''],
+        'visibility' => ['except' => ''],
+        'sortBy' => ['except' => ''],
+    ];
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+
+    public function updatedAuthor(){
+        $this->resetPage();
+    }
+
+    public function updatedCategory(){
+        $this->resetPage();
+    }
+
+    public function updatedVisibility(){
+        $this->resetPage();
+        $this->post_visibility = $this->visibility == 'public' ? 1 : 0;
+    }
+
     public function mount(){
+        $this->post_visibility = $this->visibility == 'public' ? 1 : 0;
         $categories_html = '';
 
         $pcategories = ParentCategory::whereHas('children', function ($q) {
@@ -47,8 +78,36 @@ class Posts extends Component
     {
         return view('livewire.admin.posts',[
             'posts' => auth()->user()->type == "superAdmin" ?
-                Post::paginate($this->perPage) :
-                Post::where('author_id', auth()->id())->paginate($this->perPage)
+                Post::search(trim($this->search))
+                    ->when($this->author, function($query){
+                        $query->where('author_id', $this->author);
+                    })
+                    ->when($this->category, function($query){
+                        $query->where('category', $this->category);
+                    })
+                    ->when($this->visibility, function($query){
+                        $query->where('visibility', $this->post_visibility);
+                    })
+                    ->when($this->sortBy, function($query){
+                        $query->orderBy('id', $this->sortBy);
+                    })
+
+                ->paginate($this->perPage) :
+
+                Post::search(trim($this->search))
+                    ->when($this->author, function($query){
+                        $query->where('author_id', $this->author);
+                    })
+                    ->when($this->category, function($query){
+                        $query->where('category', $this->category);
+                    })
+                    ->when($this->visibility, function($query){
+                        $query->where('visibility', $this->post_visibility);
+                    })
+                    ->when($this->sortBy, function($query){
+                        $query->orderBy('id', $this->sortBy);
+                    })
+                ->where('author_id', auth()->id())->paginate($this->perPage)
         ]);
     }
 }

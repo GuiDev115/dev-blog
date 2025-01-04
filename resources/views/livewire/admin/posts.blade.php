@@ -4,14 +4,14 @@
         <div class="row mb-20">
             <div class="col-md-4">
                 <label for="search"><b class="text-secondary">Procurar</b>:</label>
-                <input id="search" type="text" class="form-control" placeholder="Pesquisar Posts...">
+                <input wire:model.live="search" id="search" type="text" class="form-control" placeholder="Pesquisar Posts...">
             </div>
             @if(auth()->user()->type == 'superAdmin')
 
 
             <div class="col-md-2">
                 <label for="author"><b class="text-secondary">Autor</b>:</label>
-                <select id="author" class="custom-select form-control">
+                <select wire:model.live="author" id="author" class="custom-select form-control">
                     <option value="">Nenhum Selecioado</option>
                     @foreach(App\Models\User::whereHas('posts')->get() as $user)
 
@@ -24,25 +24,25 @@
             @endif
             <div class="col-md-2">
                 <label for="category"><b class="text-secondary">Categoria</b>:</label>
-                <select id="category" class="custom-select form-control">
+                <select wire:model.live="category" id="category" class="custom-select form-control">
                     <option value="">Nenhum Selecioado</option>
                     {!! $categories_html !!}
                 </select>
             </div>
             <div class="col-md-2">
                 <label for="visibility"><b class="text-secondary">Visibilidade</b>:</label>
-                <select id="visibility" class="custom-select form-control">
+                <select wire:model.live="visibility" id="visibility" class="custom-select form-control">
                     <option value="">Nenhum Selecioado</option>
-                    <option value="">Publico</option>
-                    <option value="">Privado</option>
+                    <option value="public">Publico</option>
+                    <option value="private">Privado</option>
                 </select>
             </div>
 
             <div class="col-md-2">
-                <label for="visibility"><b class="text-secondary">Ordenado por</b>:</label>
-                <select id="visibility" class="custom-select form-control">
-                    <option value="">ASC</option>
-                    <option value="">DES</option>
+                <label for="sort"><b class="text-secondary">Ordenado por</b>:</label>
+                <select wire:model.live="sortBy" id="sort" class="custom-select form-control">
+                    <option value="asc">ASC</option>
+                    <option value="desc">DESC</option>
                 </select>
             </div>
         </div>
