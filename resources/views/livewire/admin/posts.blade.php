@@ -82,7 +82,7 @@
                     </td>
                     <td>
                         <div class="table-actions">
-                            <a href="" data-color="#265ed7" style="color: rgb(38, 94, 215)">
+                            <a href="{{ route('admin.edit_post', ['id'=>$item->id]) }}" data-color="#265ed7" style="color: rgb(38, 94, 215)">
                                 <i class="icon-copy dw dw-edit2"></i>
                             </a>
                             <a href="" data-color="#e95959" style="color: rgb(233, 89, 89)">
