@@ -144,7 +144,7 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request){
-        $post = Post::findOrFail($request->id);
+        $post = Post::findOrFail($request->post_id);
         $featured_image_name = $post->featured_image;
 
         $request->validate([

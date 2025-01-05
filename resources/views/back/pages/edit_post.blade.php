@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.update_post', ['post_id' =>$post->id]) }}" method="POST" autocomplete="off" enctype="multipart/form-data" id="updatePostForm">
+    <form action="{{ route('admin.update_post',['post_id'=>$post->id]) }}" method="POST" autocomplete="off" enctype="multipart/form-data" id="updatePostForm">
         @csrf
         <div class="row">
             <div class="col-md-9">
@@ -134,9 +134,6 @@
 
         $('#updatePostForm').on('submit', function(e){
             e.preventDefault();
-            for (instance in CKEDITOR.instances) {
-                CKEDITOR.instances[instance].updateElement();
-            }
             var form = this;
             var formData = new FormData(form);
 
@@ -153,8 +150,6 @@
                 success:function(data){
                     if(data.status == 1) {
                         $(form)[0].reset();
-                        $('img#featured_image_preview').attr('src', '');
-                        $('input[name="tags"]').tagsinput('removeAll');
                         Swal.fire({
                             title: 'Success!',
                             text: data.msg,
