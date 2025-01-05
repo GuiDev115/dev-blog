@@ -109,14 +109,22 @@ class Categories extends Component
     public function deleteCategoryAction($id)
     {
         $category = Category::findOrFail($id);
-        $delete = $category->delete();
 
-        if($delete){
-            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria deletada com sucesso']);
-        }else{
-            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a categoria']);
+        if ($category->posts->count() > 0) {
+            $count = $category->posts->count();
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Essa categoria tem ' . $count . ' post(s) associado(s)']);
+        } else {
+            $delete = $category->delete();
+
+            if ($delete) {
+                $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Categoria deletada com sucesso']);
+            } else {
+                $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar a categoria']);
+            }
         }
     }
+
+
 
     public function deleteParentCategoryAction($id)
     {
