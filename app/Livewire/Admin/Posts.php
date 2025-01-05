@@ -7,6 +7,7 @@ use App\Models\Post;
 use Livewire\WithPagination;
 use App\Models\ParentCategory;
 use App\Models\Category;
+use Illuminate\Support\Facades\File;
 
 class Posts extends Component
 {
@@ -28,6 +29,10 @@ class Posts extends Component
         'visibility' => ['except' => ''],
         'sortBy' => ['except' => ''],
     ];
+
+    protected $listeners = [
+        'deletePostAction'
+        ];
     public function updatedSearch(){
         $this->resetPage();
     }
@@ -46,6 +51,8 @@ class Posts extends Component
     }
 
     public function mount(){
+        $this->author = auth()->user()->type == "superAdmin" ? auth()->user()->id : '';
+
         $this->post_visibility = $this->visibility == 'public' ? 1 : 0;
         $categories_html = '';
 
@@ -73,6 +80,34 @@ class Posts extends Component
             }
         }
         $this->categories_html = $categories_html;
+    }
+
+    public function deletePost($id){
+        $this->dispatch('deletePost', ['id' => $id]);
+    }
+
+    public function deletePostAction($id){
+        $post = Post::findOrFail($id);
+        $path = "images/posts/";
+        $resized_path = $path.'resized/';
+        $old_featured_image = $post->featured_image;
+
+        if ($old_featured_image != "" && File::exists(public_path($path . $old_featured_image))) {
+            File::delete(public_path($path . $old_featured_image));
+
+            if (File::exists(public_path($resized_path.'resized_'. $old_featured_image)) ) {
+                File::delete(public_path($resized_path.'resized_'. $old_featured_image));
+            }
+            if (File::exists(public_path($resized_path.'thumb_'. $old_featured_image)) ) {
+                File::delete(public_path($resized_path . 'thumb_' . $old_featured_image));
+            }
+        }
+
+        if ($post->delete()) {
+            $this->dispatch('showToastr', ['type' => 'success', 'message' => 'Post deletada com sucesso']);
+        }else{
+            $this->dispatch('showToastr', ['type' => 'error', 'message' => 'Erro ao deletar o Post']);
+        }
     }
     public function render()
     {

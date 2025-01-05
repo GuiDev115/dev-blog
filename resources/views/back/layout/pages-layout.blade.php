@@ -418,7 +418,7 @@
 
                 <li class="dropdown">
                     <a href="javascript:;"
-                       class="dropdown-toggle {{ Route::is('admin.add_post') || Route::is('admin.posts') ? 'active' : '' }}">
+                       class="dropdown-toggle {{ Route::is('admin.add_post') || Route::is('admin.posts') || Route::is('admin.edit_post') ? 'active' : '' }}">
 								<span class="micon fa fa-newspaper-o"></span
                                 ><span class="mtext"> Posts </span>
                     </a>

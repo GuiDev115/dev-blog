@@ -30,3 +30,25 @@
 @livewire('admin.posts')
 
 @endsection
+
+@push('scripts')
+    <script>
+        window.addEventListener('deletePost', function(event) {
+            var id = event.detail[0].id; // Acessa o id diretamente
+            Swal.fire({
+                title: 'Você Tem Certeza?',
+                text: 'Você deseja deletar este post?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'green',
+                cancelButtonColor: 'red',
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deletePostAction', [id]);
+                }
+            });
+        });
+    </script>
+@endpush

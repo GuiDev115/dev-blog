@@ -75,7 +75,7 @@
                                 <i class="icon-copy ti-world"></i> Public
                             </span>
                         @else
-                            <span class="badge badge-pill badge-success">
+                            <span class="badge badge-pill badge-warning">
                                 <i class="icon-copy ti-lock"></i> Private
                             </span>
                         @endif
@@ -85,7 +85,7 @@
                             <a href="{{ route('admin.edit_post', ['id'=>$item->id]) }}" data-color="#265ed7" style="color: rgb(38, 94, 215)">
                                 <i class="icon-copy dw dw-edit2"></i>
                             </a>
-                            <a href="" data-color="#e95959" style="color: rgb(233, 89, 89)">
+                            <a href="javascript:;" wire:click="deletePost({{ $item->id }})" data-color="#e95959" style="color: rgb(233, 89, 89)">
                                 <i class="icon-copy dw dw-delete-3"></i>
                             </a>
                         </div>
