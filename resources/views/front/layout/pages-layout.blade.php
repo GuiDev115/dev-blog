@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta name="description" content="This is meta description">
     <meta name="author" content="SawaStacks">
-    <link rel="shortcut icon" href="/front/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="/front/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/site/{{ isset(settings()->site_favicon) ? settings()->site_favicon : '' }}" type="image/x-icon">
+    <link rel="icon" href="/images/site/{{ isset(settings()->site_favicon) ? settings()->site_favicon : '' }}" type="image/x-icon">
     <link rel="stylesheet" href="/front/plugins/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/front/css/animate.min.css">
     <link rel="stylesheet" href="/front/plugins/themify-icons/themify-icons.css">
@@ -23,8 +23,8 @@
     <div class="container">
 
         <nav class="navbar navbar-expand-lg navbar-white">
-            <a class="navbar-brand" href="index.html">
-                <img class="img-fluid" width="150px" src="/front/images/logo.png" alt="SawaBlog">
+            <a class="navbar-brand" href="/">
+                <img class="img-fluid" width="150px" src="/images/site/{{ isset(settings()->site_logo) ? settings()->site_logo : '' }}" alt="{{ isset(settings()->site_title) ? settings()->site_title : '' }}">
             </a>
             <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
                 <i class="ti-menu"></i>
@@ -85,9 +85,11 @@
         <div class="row justify-content-between">
             <div class="col-md-3 mb-4">
                 <a class="mb-4 d-block" href="index.html">
-                    <img class="img-fluid" width="150px" src="/front/images/logo.png" alt="SawaBlog">
+                    <img class="img-fluid" width="150px" src="/images/site/{{ isset(settings()->site_logo) ? settings()->site_logo : '' }}" alt="{{ isset(settings()->site_title) ? settings()->site_title : '' }}">
                 </a>
-                <p>Ratione illum tempore id voluptatem nemo fugit error nulla similique minima odit, pariatur eaque, perspiciatis cumque necessitatibus voluptates nostrum magnam enim.</p>
+                <p>
+                    {{ isset(settings()->site_meta_description) ? settings()->site_meta_description : '' }}
+                </p>
             </div>
 
             <div class="col-lg-2 col-md-3 col-6 mb-4">

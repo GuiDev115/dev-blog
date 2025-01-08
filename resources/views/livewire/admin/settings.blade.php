@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for=""><b>Site Meta Descricao</b><small> (Optional)</small></label>
-                            <textarea class="form-control" cols="4" rows="4" placeholder="Digita a descricao do site" wire:model="site_meta_description"></textarea>
+                            <textarea class="form-control" cols="4" rows="4" placeholder="Digita a descricao do site" wire:model="site_meta_description" wire:model="site_meta_description"></textarea>
                             @error('site_meta_description')
                                 <span class="text-danger ml-1">{{ $message }}</span>
                             @enderror
