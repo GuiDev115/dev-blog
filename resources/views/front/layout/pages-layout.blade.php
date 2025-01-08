@@ -39,19 +39,10 @@
                         <a class="nav-link" href="about.html">About</a>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="author.html">Author</a>
-                            <a class="dropdown-item" href="category-posts.html">Category posts</a>
-                            <a class="dropdown-item" href="search-results.html">Search results</a>
-                            <a class="dropdown-item" href="post-details.html">Post Details</a>
-                            <a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a>
-                            <a class="dropdown-item" href="terms-conditions.html">Terms Conditions</a>
-                        </div>
-                    </li>
+
+                    {!! navigations() !!}
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
