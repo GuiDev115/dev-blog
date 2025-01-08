@@ -4,10 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlogController;
 
-Route::get('/', function () {
-    return view('front.pages.front-example');
-});
+// Rotas para o frontend
+Route::get('/', [BlogController::class, 'index'])->name('home');
+Route::get('/post/{slug}', [BlogController::class, 'readPost'])->name('read_post');
+Route::get('/posts/category/{slug}', [BlogController::class, 'categoryPosts'])->name('category_posts');
+Route::get('/posts/author/{username}', [BlogController::class, 'authorPosts'])->name('author_posts');
+Route::get('/posts/tag/{any}', [BlogController::class, 'tagPosts'])->name('tag_posts');
+Route::get('/search', [BlogController::class, 'searchPosts'])->name('search_posts');
 
 Route::view('/example-page', 'example-page');
 Route::view('/example-auth', 'example-auth');
