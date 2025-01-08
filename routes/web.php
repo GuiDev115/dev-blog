@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.pages.front-example');
 });
 
 Route::view('/example-page', 'example-page');
