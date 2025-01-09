@@ -82,4 +82,25 @@ class BlogController extends Controller
         ];
         return view('front.pages.author_posts', $data);
     }
+
+    public function tagPosts(Request $request, $tag = null){
+        $posts = Post::where('tags', 'LIKE', "%{$tag}%")->where('visibility', 1)->paginate(8);
+
+        $title = "Postagens com a tag: {$tag}";
+        $description = "Navegue pelas últimas postagens com a tag {$tag}. Mantenha-se atualizado com artigos, insights e tutoriais.";
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+        SEOTools::setCanonical(url()->current());
+
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'articles');
+
+        $data = [
+            'pageTitle'=>$title,
+            'tag'=>$tag,
+            'posts'=>$posts
+        ];
+        return view('front.pages.tag_posts', $data);
+    }
 }
