@@ -7,6 +7,7 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 class BlogController extends Controller
 {
@@ -54,5 +55,31 @@ class BlogController extends Controller
             'posts'=>$posts
         ];
         return view('front.pages.category_posts', $data);
+    }
+
+    public function authorPosts(Request $request, $username = null){
+        $author = User::where('username', $username)->firstOrFail();
+
+        $posts = Post::where('author_id', $author->id)->orderBy('created_at', 'asc')->paginate(8);
+
+        $title = $author->name.' = Postagens';
+        $description = 'Navegue pelas últimas postagens de '.$author->name.'. Mantenha-se atualizado com os artigos.';
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+        SEOTools::setCanonical(route('author_posts', ['username'=>$author->username]));
+        SEOTools::opengraph()->setUrl(route('author_posts',['username'=>$author->username]));
+        SEOTools::opengraph()->addProperty('type', 'profile');
+        SEOTools::opengraph()->setProfile([
+            'pageTitle'=>$author->name,
+            'username'=>$author->username
+        ]);
+
+        $data = [
+            'pageTitle'=>$author->name,
+            'author'=>$author,
+            'posts'=>$posts
+        ];
+        return view('front.pages.author_posts', $data);
     }
 }
