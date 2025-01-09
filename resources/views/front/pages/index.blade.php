@@ -112,32 +112,7 @@
                         </form>
                     </div>
                     <!-- categories -->
-                    <div class="widget">
-                        <h5 class="widget-title"><span>Categories</span></h5>
-                        <ul class="list-unstyled widget-list">
-                            <li><a href="#!" class="d-flex">Frontend Frameworks
-                                    <small class="ml-auto">(4)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">Mobile App Development
-                                    <small class="ml-auto">(12)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">Cybersecurity Essentials
-                                    <small class="ml-auto">(19)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">Data Structure and Algorithm
-                                    <small class="ml-auto">(24)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">API Development and Integration
-                                    <small class="ml-auto">(3)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">Database Management
-                                    <small class="ml-auto">(8)</small></a>
-                            </li>
-                            <li><a href="#!" class="d-flex">Backend Development
-                                    <small class="ml-auto">(3)</small></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <x-sidebar-categories></x-sidebar-categories>>
                     <!-- tags -->
                     <div class="widget">
                         <h5 class="widget-title"><span>Tags</span></h5>

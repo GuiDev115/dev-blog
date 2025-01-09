@@ -101,4 +101,13 @@ if( !function_exists('latest_posts')){
     }
 }
 
+//listar categoiras com numero de posts no sidebar
+
+if(!function_exists('sidebar_categories')) {
+    function sidebar_categories($limit = 8)
+    {
+        return Category::withCount('posts')->having('posts_count', '>', 0)->orderBy('posts_count', 'desc')->limit($limit)->get();
+    }
+}
+
 ?>
