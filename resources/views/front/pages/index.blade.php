@@ -32,106 +32,71 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mx-auto">
-                            <h3>
-                                <a class="post-title" href="post-details.html">
-                                    CSS Animations: Adding Life to Your Web Pages
-                                </a>
-                            </h3>
-                            <ul class="list-inline post-meta mb-4">
-                                <li class="list-inline-item"><i class="ti-user mr-1"></i>
-                                    <a href="author.html">William Freg</a>
-                                </li>
-                                <li class="list-inline-item"><i class="ti-calendar mr-1"></i>June 15, 2024</li>
-                                <li class="list-inline-item">Category : <a href="#!" class="ml-1">Web Development </a>
-                                </li>
-                                <li class="list-inline-item">Tags : <a href="#!" class="ml-1">css </a> ,<a href="#!" class="ml-1">html </a>
-                                </li>
-                            </ul>
-                            <p>
-                                Eum omnis natus ex corrupti cum impedit adipisci minus, harum hic illum quasi iusto perspiciatis repellat! Dicta praesentium quae, voluptate, perferendis fugit quia eius consequuntur quaerat nulla eligendi iste totam deserunt obcaecati provident expedita vero nam natus iusto quod sit odit magnam laudantium.
-                            </p>
-                            <a href="post-elements.html" class="btn btn-outline-primary">Read more...</a>
-                        </div>
+
+                        @if( !empty(latest_posts(0, 1)) )
+                            @foreach(latest_posts(0, 1) as $post)
+                                <div class="col-12 mx-auto">
+                                    <h3>
+                                        <a class="post-title" href="{{ route('read_post', $post->slug) }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </h3>
+                                    <ul class="list-inline post-meta mb-4">
+                                        <li class="list-inline-item"><i class="ti-user mr-1"></i>
+                                            <a href="{{ route('author_posts', $post->author->username) }}">{{ $post->author->name }}</a>
+                                        </li>
+                                        <li class="list-inline-item"><i class="ti-calendar mr-1"></i> {{ date_formatter($post->created_at) }}</li>
+                                        <li class="list-inline-item">Categoria : <a href="{{ route('category_posts', $post->post_category->slug) }}" class="ml-1">{{ $post->post_category->name }} </a>
+                                        </li>
+                                        <li class="list-inline-item"><i class="ti-timer mr-1"></i> {{ readDuration($post->title, $post->contents) }} @choice('min|mins', readDuration($post->title,$post->contents))
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        {!! Str::ucfirst(words($post->contents, 45)) !!}
+                                    </p>
+                                    <a href="{{ route('read_post',$post->slug)}}" class="btn btn-outline-primary">Leia mais...</a>
+                                </div>
+                            @endforeach
+                        @endif
+
                     </article>
 
+                    @if( !empty(latest_posts(1, 3)) )
+                        @foreach(latest_posts(1, 3) as $post)
+
                     <section id="home__latest-posts">
+
+
                         <article class="row mb-5">
                             <div class="col-md-4 mb-4 mb-md-0">
                                 <div class="post-img-box">
-                                    <img src="/front/images/posts/09.png" class="img-fluid rounded-lg" alt="post-thumb">
+                                    <img src="/images/posts/resized/resized_{{ $post->featured_image }}" class="img-fluid rounded-lg" alt="post-thumb">
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
-                                    <a class="post-title" href="post-details.html">
-                                        Getting Started with Laravel: Your First Project Setup
+                                    <a class="post-title" href="{{ route('read_post', $post->slug) }}">
+                                        {{ $post->title }}
                                     </a>
                                 </h4>
                                 <ul class="list-inline post-meta mb-2">
-                                    <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">Mark Wood</a>
+                                    <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="{{ route('author_posts', $post->author->username) }}">{{ $post->author->name }}</a>
                                     </li>
-                                    <li class="list-inline-item">Date : June 11, 2024</li>
-                                    <li class="list-inline-item">Category : <a href="#!" class="ml-1">Web design </a>
+                                    <li class="list-inline-item"><i class="ti-calendar mr-1"></i> {{ date_formatter($post->created_at) }}</li>
+                                    <li class="list-inline-item">Categoria : <a href="{{ route('category_posts', $post->post_category->slug) }}" class="ml-1">{{ $post->post_category->name }} </a>
                                     </li>
-                                    <li class="list-inline-item">Tags : <a href="#!" class="ml-1">Laravel </a> ,<a href="#!" class="ml-1">Framework </a>
+                                    <li class="list-inline-item"><i class="ti-timer mr-1"></i> {{ readDuration($post->title, $post->contents) }} @choice('min|mins', readDuration($post->title,$post->contents))
                                     </li>
                                 </ul>
                                 <p>
-                                    Learn the step-by-step process to install and configure your first Laravel project. From setting up the environment to creating your first controller, this guide will get you up and running with Laravel in no time …
-                                </p>
-                                <a href="post-details.html" class="btn btn-outline-primary">Read more...</a>
+                                    {!! Str::ucfirst(words($post->contents, 30)) !!}                                </p>
+                                <a href="{{ route('read_post', $post->slug) }}" class="btn btn-outline-primary">Leia mais...</a>
                             </div>
                         </article>
 
-                        <article class="row mb-5">
-                            <div class="col-md-4 mb-4 mb-md-0">
-                                <div class="post-img-box">
-                                    <img src="/front/images/posts/04.png" class="img-fluid rounded-lg" alt="post-thumb"   >
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h4>
-                                    <a class="post-title" href="post-details.html">Building a Simple CRUD Application with PHP and MySQL</a>
-                                </h4>
-                                <ul class="list-inline post-meta mb-2">
-                                    <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">Mark Wood</a>
-                                    </li>
-                                    <li class="list-inline-item">Date : June 22, 2024</li>
-                                    <li class="list-inline-item">Category : <a href="#!" class="ml-1">Web design </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        Tags : <a href="#!" class="ml-1">Web </a> ,<a href="#!" class="ml-1">Php </a>
-                                    </li>
-                                </ul>
-                                <p>In this guide, learn how to create a basic CRUD (Create, Read, Update, Delete) application with PHP and MySQL. It's a great project to solidify your PHP fundamentals and gain hands-on experience with databases …</p> <a href="post-details.html" class="btn btn-outline-primary">Read more...</a>
-                            </div>
-                        </article>
-                        <article class="row mb-5">
-                            <div class="col-md-4 mb-4 mb-md-0">
-                                <div class="post-img-box">
-                                    <img src="/front/images/posts/05.png" class="img-fluid rounded-lg" alt="post-thumb"   >
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h4>
-                                    <a class="post-title" href="post-details.html">
-                                        Creating Responsive Navigation Bars with HTML and CSS
-                                    </a>
-                                </h4>
-                                <ul class="list-inline post-meta mb-2">
-                                    <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">Mark Wood</a>
-                                    </li>
-                                    <li class="list-inline-item">Date : June 22, 2024</li>
-                                    <li class="list-inline-item">Category : <a href="#!" class="ml-1">Web design </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        Tags : <a href="#!" class="ml-1">Web </a> ,<a href="#!" class="ml-1">Php </a>
-                                    </li>
-                                </ul>
-                                <p>In this guide, learn how to create a basic CRUD (Create, Read, Update, Delete) application with PHP and MySQL. It's a great project to solidify your PHP fundamentals and gain hands-on experience with databases …</p> <a href="post-details.html" class="btn btn-outline-primary">Read more...</a>
-                            </div>
-                        </article>
+                        @endforeach
+                        @endif
+
                     </section>
 
 

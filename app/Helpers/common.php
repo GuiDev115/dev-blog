@@ -2,6 +2,9 @@
 use App\Models\GeneralSetting;
 use App\Models\ParentCategory;
 use App\Models\Category;
+use App\Models\Post;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 if(!function_exists('settings')){
     function settings(){
@@ -56,6 +59,45 @@ if(!function_exists('navigations')){
         }
 
         return $navigations_html;
+    }
+}
+
+//Formato da Data ex: Janeiro 01, 2021
+if(!function_exists('date_formatter')){
+    function date_formatter($value){
+        try {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->isoFormat('LL');
+        } catch (\Exception $e) {
+            return 'Invalid date format';
+        }
+    }
+}
+
+//words strips - limita o número de palavras
+if(!function_exists('words')){
+    function words($value, $words = 15, $end = '...'){
+        return Str::words(strip_tags($value), $words, $end);
+    }
+}
+
+//Calcula duracao de tempo do post
+
+if( !function_exists('readDuration')){
+    function readDuration(...$text){
+        Str::macro('timeCounter', function($text){
+           $totalWords = str_word_count(implode(" ", $text));
+              $minutesToRead = round($totalWords / 200);
+              return (int)max(1,$minutesToRead);
+        });
+        return Str::timeCounter($text);
+    }
+}
+
+// exibir a última publicação na página inicial
+
+if( !function_exists('latest_posts')){
+    function latest_posts($skip = 0, $limit = 5){
+        return Post::skip($skip)->limit($limit)->orderBy('id', 'desc')->where('visibility', 1)->get();
     }
 }
 
