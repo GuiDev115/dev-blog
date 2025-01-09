@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\SEOMeta;
+use App\Models\Post;
+use App\Models\Category;
 
 class BlogController extends Controller
 {
@@ -34,5 +36,23 @@ class BlogController extends Controller
             'pageTitle'=>$title
         ];
         return view('front.pages.index', $data);
+    } //fim do metodo
+
+    public function categoryPosts(Request $request, $slug = null){
+        $category = Category::where('slug', $slug)->firstOrFail();
+        $posts = Post::where('category', $category->id)->paginate(8);
+
+        $title = 'Post em Categoria: '.$category->name;
+        $description = 'Navegue pelas últimas postagens na seção'.$category->name.' categoria. mantenha-se atualizado com artigos, insights e tutoriais.';
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+        SEOTools::opengraph()->setUrl(url()->current());
+
+        $data = [
+            'pageTitle'=>$category->name,
+            'posts'=>$posts
+        ];
+        return view('front.pages.category_posts', $data);
     }
 }

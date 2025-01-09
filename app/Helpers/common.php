@@ -37,7 +37,7 @@ if(!function_exists('navigations')){
 
                 foreach( $item->children as $category){
                     if($category->posts->count() > 0){
-                        $navigations_html .= '<a class="dropdown-item" href="#!"> '.$category->name.'</a>';
+                        $navigations_html .= '<a class="dropdown-item" href="'.route('category_posts', $category->slug).'"> '.$category->name.'</a>';
                     }
                 }
 
@@ -52,7 +52,7 @@ if(!function_exists('navigations')){
             foreach ($categories as $item){
                 $navigations_html .= '
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">'.$item->name.'</a>
+                        <a class="nav-link" href="'.route('category_posts', $item->slug).'">'.$item->name.'</a>
                     </li>
                 ';
             }
