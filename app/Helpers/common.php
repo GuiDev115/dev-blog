@@ -110,4 +110,22 @@ if(!function_exists('sidebar_categories')) {
     }
 }
 
+//listar tags com numero de posts no sidebar
+
+if(!function_exists('getTags')) {
+    function getTags($limit = null)
+    {
+        $tags = Post::where('tags', '!=','')->pluck('tags');
+
+        $uniqueTags = $tags->flatMap(function($tagsString){
+            return explode(',', $tagsString);
+        })->map(fn($tag)=>trim($tag))->unique()->sort()->values();
+
+        if($limit){
+            $uniqueTags = $uniqueTags->take($limit);
+        }
+        return $uniqueTags->all();
+    }
+}
+
 ?>

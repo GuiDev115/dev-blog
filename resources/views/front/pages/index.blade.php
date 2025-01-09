@@ -114,31 +114,7 @@
                     <!-- categories -->
                     <x-sidebar-categories></x-sidebar-categories>>
                     <!-- tags -->
-                    <div class="widget">
-                        <h5 class="widget-title"><span>Tags</span></h5>
-                        <ul class="list-inline widget-list-inline">
-                            <li class="list-inline-item"><a href="#!">Laravel</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">CodingTips</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">javascript</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">AI</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">frontend</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">backend</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">Framework</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">Cybersecurity</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">jquery</a>
-                            </li>
-                            <li class="list-inline-item"><a href="#!">php</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <x-sidebar-tags></x-sidebar-tags>
                     <!-- latest post -->
                     <div class="widget">
                         <h5 class="widget-title"><span>Latest Article</span></h5>
