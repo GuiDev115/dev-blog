@@ -41,6 +41,7 @@ class Profile extends Component
         $this->username = $user->username;
         $this->bio = $user->bio;
 
+        // Set social links
         if(!is_null($user->social_links)){
             $this->facebook_url = $user->social_links->facebook_url;
             $this->instagram_url = $user->social_links->instagram_url;
@@ -122,6 +123,8 @@ class Profile extends Component
 
     public function updateSocialLinks()
     {
+        $user = User::findOrFail(auth()->id());
+
         $this->validate([
             'facebook_url' => 'nullable|url',
             'instagram_url' => 'nullable|url',
@@ -131,35 +134,27 @@ class Profile extends Component
             'github_url' => 'nullable|url',
         ]);
 
-        $user = User::findOrFail(auth()->id());
-
-        $data = array(
+        $data = [
             'facebook_url' => $this->facebook_url,
             'instagram_url' => $this->instagram_url,
             'youtube_url' => $this->youtube_url,
             'linkedin_url' => $this->linkedin_url,
             'twitter_url' => $this->twitter_url,
             'github_url' => $this->github_url,
-        );
+        ];
 
-        if (!is_null($user->social_links)) {
-            $query = $user->social_links()->update($data);
+        if ($user->social_links) {
+            $updated = $user->social_links->update($data);
         } else {
             $data['user_id'] = $user->id;
-            $query = UserSocialLink::insert($data);
+            $created = UserSocialLink::create($data);
+            $updated = $created ? true : false;
         }
 
-        if ($query) {
-            $this->dispatch('showToastr', [
-                'type' => 'success',
-                'message' => 'Links sociais atualizados com sucesso'
-            ]);
-        } else {
-            $this->dispatch('showToastr', [
-                'type' => 'error',
-                'message' => 'Erro ao atualizar links sociais'
-            ]);
-        }
+        $this->dispatch('showToastr', [
+            'type' => $updated ? 'success' : 'error',
+            'message' => $updated ? 'Links sociais atualizados com sucesso' : 'Erro ao atualizar links sociais'
+        ]);
     }
     public function render()
     {

@@ -10,11 +10,11 @@ class UserSocialLink extends Model
     use HasFactory;
 
     protected $fillable = [
-        'facebook_url',
-        'instagram_url',
-        'youtube_url',
-        'linkedin_url',
-        'twitter_url',
-        'github_url',
+        'user_id', 'facebook_url', 'instagram_url', 'youtube_url', 'linkedin_url', 'twitter_url', 'github_url'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

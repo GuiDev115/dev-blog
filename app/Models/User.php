@@ -61,8 +61,9 @@ class User extends Authenticatable
         return $value ? asset('/images/users/'.$value) : asset('/images/users/default-avatar.jpg');
     }
 
-    public function social_links(){
-        return $this->belongsTo(UserSocialLink::class, 'id', 'user_id');
+    public function social_links()
+    {
+        return $this->hasOne(UserSocialLink::class, 'user_id');
     }
 
     public function getTypeAttribute($value)
