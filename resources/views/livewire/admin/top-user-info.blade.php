@@ -19,7 +19,7 @@
                 <a class="dropdown-item" href="{{ route('admin.profile') }}"
                 ><i class="dw dw-user1"></i> Perfil</a
                 >
-                <a class="dropdown-item" href="profile.html"
+                <a class="dropdown-item" href="{{ route('admin.settings') }}"
                 ><i class="dw dw-settings2"></i> Config</a
                 >
                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
