@@ -12,16 +12,30 @@ return new class extends Migration
     public function up(): void
     {
         DB::table('users')->insert([
+            [
             'name' => 'Super Admin',
-            'username' => 'admin',
-            'email' => 'admin@devblog.com',
-            'password' => bcrypt('admin'),
+            'username' => 'Superadmin',
+            'email' => 'Superadmin@devblog.com',
+            'password' => bcrypt('superadmin'),
             'picture' => 'default-avatar.jpg',
-            'bio' => 'Conta Padrao com Super Admin',
+            'bio' => 'Conta Padrao com Super Administração',
             'type' => 'superAdmin',
             'status' => 'active',
             'created_at' => now(),
             'updated_at' => now(),
+        ],
+            [
+                'name' => 'Admin',
+                'username' => 'admin',
+                'email' => 'admin@devblog.com',
+                'password' => bcrypt('admin'),
+                'picture' => 'default-avatar.jpg',
+                'bio' => 'Conta Padrao com Administração',
+                'type' => 'admin',
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
     }
 
