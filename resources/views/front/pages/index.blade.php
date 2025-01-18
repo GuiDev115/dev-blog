@@ -112,7 +112,7 @@
                         </form>
                     </div>
                     <!-- categories -->
-                    <x-sidebar-categories></x-sidebar-categories>>
+                    <x-sidebar-categories></x-sidebar-categories>
                     <!-- tags -->
                     <x-sidebar-tags></x-sidebar-tags>
                     <!-- latest post -->
