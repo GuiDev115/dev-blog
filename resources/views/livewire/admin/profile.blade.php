@@ -25,31 +25,31 @@
 
                         @if( $user->social_links->twitter_url )
                         <li>
-                            <a href="#" class="btn" data-bgcolor="#1da1f2" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ $user->social_links->twitter_url }}" class="btn" data-bgcolor="#1da1f2" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);"><i class="fa fa-twitter"></i></a>
                         </li>
                         @endif
 
                         @if( $user->social_links->youtube_url )
                         <li>
-                            <a href="#" class="btn" data-bgcolor="#007bb5" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 181);"><i class="fa fa-linkedin"></i></a>
+                            <a href="{{ $user->social_links->youtube_url }}" class="btn" data-bgcolor="#007bb5" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 181);"><i class="fa fa-linkedin"></i></a>
                         </li>
                         @endif
 
                         @if( $user->social_links->github_url )
                         <li>
-                            <a href="#" class="btn" data-bgcolor="#f46f30" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(244, 111, 48);"><i class="fa fa-instagram"></i></a>
+                            <a href="{{ $user->social_links->github_url }}" class="btn" data-bgcolor="#000000" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(244, 111, 48);"><i class="fa fa-github"></i></a>
                         </li>
                         @endif
 
                         @if( $user->social_links->linkedin_url )
                         <li>
-                            <a href="#" class="btn" data-bgcolor="#c32361" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(195, 35, 97);"><i class="fa fa-dribbble"></i></a>
+                            <a href="{{ $user->social_links->linkedin_url }}" class="btn" data-bgcolor="#0077B5" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(195, 35, 97);"><i class="fa fa-linkedin"></i></a>
                         </li>
                         @endif
 
                         @if( $user->social_links->instagram_url )
                         <li>
-                            <a href="#" class="btn" data-bgcolor="#3d464d" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(61, 70, 77);"><i class="fa fa-dropbox"></i></a>
+                            <a href="{{ $user->social_links->instagram_url }}" class="btn" data-bgcolor="#E1306C" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(61, 70, 77);"><i class="fa fa-instagram"></i></a>
                         </li>
                         @endif
                     </ul>
