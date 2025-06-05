@@ -103,4 +103,42 @@ class BlogController extends Controller
         ];
         return view('front.pages.tag_posts', $data);
     }
+
+    public function searchPosts(Request $request){
+        $query = $request->get('q');
+
+        if($query){
+
+            $keywords = explode(' ', $query);
+            $postsQuery = Post::query();
+
+            foreach ($keywords as $keyword) {
+                $postsQuery->orWhere('title', 'LIKE', '%'.$keyword.'%')
+                            ->orWhere('tags', 'LIKE', '%'.$keyword.'%');
+            }
+            $posts = $postsQuery->where('visibility', 1)
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(10);
+
+            // Meta SEO
+
+            $title = 'Resultados da pesquisa: '.$query;
+            $description = 'Resultados da pesquisa para: '.$query.'. Navegue por artigos, insights e tutoriais relacionados.';
+        }else{
+            $posts = collect();
+
+            $title = 'Search';
+            $description = 'Procure por artigos em nosso site.';
+        }
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+
+        $data = [
+            'pageTitle' => $title,
+            'query' => $query,
+            'posts' => $posts
+        ];
+        return view('front.pages.search_posts', $data);
+    }
 }

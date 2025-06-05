@@ -14,7 +14,7 @@ return new class extends Migration
         DB::table('users')->insert([
             [
             'name' => 'Super Admin',
-            'username' => 'Superadmin',
+            'username' => 'superadmin',
             'email' => 'Superadmin@devblog.com',
             'password' => bcrypt('superadmin'),
             'picture' => 'default-avatar.jpg',

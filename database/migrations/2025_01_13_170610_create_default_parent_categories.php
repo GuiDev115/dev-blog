@@ -13,15 +13,15 @@ return new class extends Migration
     {
         DB::table('parent_categories')->insert([
             [
-            'name'=>'Programação',
+            'name'=>'Algoritmo',
             'slug'=>'blog-de-programacao',
             'ordering' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ],
         [
-            'name'=>'Arquitetura',
-            'slug'=>'arquitetura',
+            'name'=>'Arq.',
+            'slug'=>'arquitetura-de-software',
             'ordering' => 2,
             'created_at' => now(),
             'updated_at' => now(),
@@ -51,13 +51,6 @@ return new class extends Migration
             'name'=>'Mobile',
             'slug'=>'mobile',
             'ordering' => 6,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],
-        [
-            'name'=>'IoT',
-            'slug'=>'internet-das-coisas-iot',
-            'ordering' => 7,
             'created_at' => now(),
             'updated_at' => now(),
         ],

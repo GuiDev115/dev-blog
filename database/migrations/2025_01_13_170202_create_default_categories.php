@@ -61,14 +61,6 @@ return new class extends Migration
             'updated_at' => now(),
         ],
         [
-            'name'=>'iot',
-            'slug'=>'iot',
-            'parent'=>7,
-            'ordering' => 7,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],
-        [
             'name'=>'data science',
             'slug'=>'data-science',
             'parent'=>8,
