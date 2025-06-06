@@ -76,56 +76,23 @@
             <div class="widget">
                 <h5 class="widget-title"><span>Latest Article</span></h5>
                 <!-- post-item -->
+                @foreach( sidebar_latest_posts() as $item)
+
                 <ul class="list-unstyled widget-list">
                     <li class="media widget-post align-items-center">
-                        <a href="post-details.html">
-                            <img loading="lazy" class="mr-3" src="./images/posts/05.png">
+                        <a href="{{ route('read_post', $item->slug) }}">
+                            <img loading="lazy" class="mr-3" src="/images/posts/resized/thumb_{{ $item->featured_image }}">
                         </a>
                         <div class="media-body">
                             <h6 class="mb-0">
-                                <a href="post-details.html">Optimizing CodeIgniter Applications for Speed.</a>
+                                <a href="{{ route('read_post', $item->slug) }}"> {{ $item->title }}</a>
                             </h6>
-                            <small>June 10, 2024</small>
+                            <small>{{ date_formatter($item->created_at) }}</small>
                         </div>
                     </li>
                 </ul>
-                <ul class="list-unstyled widget-list">
-                    <li class="media widget-post align-items-center">
-                        <a href="post-details.html">
-                            <img loading="lazy" class="mr-3" src="./images/posts/06.png">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="mb-0"><a href="post-details.html">CSS Animations: Adding Life to Your Web Page</a>
-                            </h6>
-                            <small>June 27, 2024</small>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-unstyled widget-list">
-                    <li class="media widget-post align-items-center">
-                        <a href="post-details-2.html">
-                            <img loading="lazy" class="mr-3" src="./images/posts/07.png">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="mb-0"><a href="post-details-2.html">PHP Error Handling: Best Practices for
-                                    Beginners</a>
-                            </h6>
-                            <small>June 03, 2024</small>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="list-unstyled widget-list">
-                    <li class="media widget-post align-items-center">
-                        <a href="post-details-2.html">
-                            <img loading="lazy" class="mr-3" src="./images/posts/08.png">
-                        </a>
-                        <div class="media-body">
-                            <h6 class="mb-0"><a href="post-details-2.html">Secure User Authentication with PHP</a>
-                            </h6>
-                            <small>June 03, 2024</small>
-                        </div>
-                    </li>
-                </ul>
+
+                @endforeach
             </div>
         </aside>
     </div>

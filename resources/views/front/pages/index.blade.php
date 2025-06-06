@@ -70,7 +70,7 @@
                         <article class="row mb-5">
                             <div class="col-md-4 mb-4 mb-md-0">
                                 <div class="post-img-box">
-                                    <img src="/images/posts/resized/resized_{{ $post->featured_image }}" class="img-fluid rounded-lg" alt="post-thumb">
+                                    <img src="/images/posts/resized/resized_{{ $post->featured_image }}" class="img-fluid rounded-lg">
                                 </div>
                             </div>
                             <div class="col-md-8">

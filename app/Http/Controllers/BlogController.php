@@ -41,7 +41,9 @@ class BlogController extends Controller
 
     public function categoryPosts(Request $request, $slug = null){
         $category = Category::where('slug', $slug)->firstOrFail();
-        $posts = Post::where('category', $category->id)->paginate(8);
+        $posts = Post::where('category', $category->id)
+                    ->where('visibility', 1)
+                    ->paginate(8);
 
         $title = 'Post em Categoria: '.$category->name;
         $description = 'Navegue pelas últimas postagens na seção'.$category->name.' categoria. mantenha-se atualizado com artigos, insights e tutoriais.';
@@ -60,7 +62,10 @@ class BlogController extends Controller
     public function authorPosts(Request $request, $username = null){
         $author = User::where('username', $username)->firstOrFail();
 
-        $posts = Post::where('author_id', $author->id)->orderBy('created_at', 'asc')->paginate(8);
+        $posts = Post::where('author_id', $author->id)
+                ->where('visibility', 1)
+                ->orderBy('created_at', 'asc')
+                ->paginate(8);
 
         $title = $author->name.' = Postagens';
         $description = 'Navegue pelas últimas postagens de '.$author->name.'. Mantenha-se atualizado com os artigos.';

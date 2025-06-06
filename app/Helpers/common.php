@@ -128,4 +128,18 @@ if(!function_exists('getTags')) {
     }
 }
 
+// Listando sidebar dos ultimos posts
+
+if(!function_exists('sidebar_latest_posts')) {
+    function sidebar_latest_posts($limit = 5, $expect = null){
+        $posts = Post::limit($limit);
+        if($expect){
+            $posts = $posts->where('id', '!=', $expect);
+        }
+        return $posts->where('visibility', 1)
+                     ->orderBy('created_at', 'desc')
+                     ->get();
+    }
+}
+
 ?>
