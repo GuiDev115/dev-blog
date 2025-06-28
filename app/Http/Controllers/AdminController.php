@@ -161,4 +161,12 @@ class AdminController extends Controller
 
     }
 
+    public function manageSlider(Request $request)
+    {
+        $data = [
+            'pageTitle' => 'Gerenciar Slider',
+        ];
+        return view('back.pages.slider', $data);
+    }
+
 }
