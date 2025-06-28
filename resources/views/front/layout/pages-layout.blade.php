@@ -56,6 +56,36 @@
                     </div>
                 </div>
                 <!-- /search -->
+
+                @auth()
+
+                <div class="user-details">
+                    <img src="{{ auth()->user()->picture }}" alt="User avatar">
+                    <div class="user-dropdown">
+                        <a href="{{ route('admin.dashboard') }}">
+                            <i class="ti-dashboard"></i>Dashboard
+                        </a>
+                        <a href="{{ route('admin.profile') }}">
+                            <i class="ti-user"></i>Perfil
+                        </a>
+
+                        @if (auth()->user()->type == 'superAdmin')
+
+                        <a href="{{ route('admin.settings') }}">
+                            <i class="ti-settings"></i>Configurações
+                        </a>
+                        @endif
+                        <form id="front-logout-form" action="{{ route('admin.logout', ['source'=>'front']) }}" method="POST" style="display: none">
+                        @csrf
+                        </form>
+                        <a href="javascript:;" onclick="event.preventDefault(); document.getElementById('front-logout-form').submit();">
+                            <i class="ti-power-off"></i>Logout
+                        </a>
+                    </div>
+                </div>
+
+                @endauth
+
             </div>
         </nav>
     </div>
@@ -125,6 +155,20 @@
 <script src="/front/plugins/bootstrap/bootstrap.min.js" async></script>
 <script src="/front/plugins/slick/slick.min.js"></script>
 <script src="/front/js/script.js"></script>
+
+<script>
+    document.querySelector('.user-details').addEventListener('click', function(){
+        this.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+        const userDetails = document.querySelector('.user-details');
+        if (!userDetails.contains(e.target)) {
+            userDetails.classList.remove('active');
+        }
+    });
+</script>
+
 @stack('scripts')
 </body>
 </html>
