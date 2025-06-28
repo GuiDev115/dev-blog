@@ -146,4 +146,45 @@ class BlogController extends Controller
         ];
         return view('front.pages.search_posts', $data);
     }
+
+    public function readPost(Request $request, $slug = null)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+
+        $relatedPosts = Post::where('category', $post->category)
+            ->where('id', '!=', $post->id)
+            ->where('visibility', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        $nextPost = Post::where('id', '>', $post->id)
+            ->where('visibility', 1)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        $prevPost = Post::where('id', '<', $post->id)
+            ->where('visibility', 1)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $title = $post->title;
+        $description = ($post->meta_description != '') ? $post->meta_description : words ($post->content, 35);
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+        SEOTools::opengraph()->setUrl(route('read_post', ['slug' => $post->slug]));
+        SEOTools::opengraph()->addProperty('type', 'article');
+        SEOTools::opengraph()->addImage(asset('/images/posts/'.$post->featured_image));
+        SEOTools::twitter()->addImage(asset('/images/posts/'.$post->featured_image));
+
+        $data = [
+            'pageTitle' => $title,
+            'post' => $post,
+            'relatedPosts' => $relatedPosts,
+            'nextPost' => $nextPost,
+            'prevPost' => $prevPost
+        ];
+        return view('front.pages.single_post', $data);
+    }
 }
