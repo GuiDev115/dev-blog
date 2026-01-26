@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="/extra-assets/jquery-ui-1.14.1/jquery-ui.theme.min.css">
 
     @kropifyStyles
+    @livewireStyles
     @stack('stylesheets')
 </head>
 <body>
@@ -517,7 +518,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/extra-assets/jquery-ui-1.14.1/jquery-ui.min.js"></script>
 
+@livewireScripts
+
 @kropifyScripts
+
 @stack('scripts')
 <script>
     // Define the notifa function

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\ParentCategory;
 use App\Models\Category;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Categories extends Component
 {
@@ -19,12 +20,6 @@ class Categories extends Component
     public $pcategoriesPerPage = 5;
     public $categoriesPerPage = 10;
 
-    protected $listeners = [
-        'updateParentCategoryOrdering',
-        'updateCategoryOrdering',
-        'deleteCategoryAction',
-        'deleteParentCategoryAction'
-    ];
 
     public function addParentCategory(){
         $this->pcategory_id = null;
@@ -74,6 +69,7 @@ class Categories extends Component
         }
 }
 
+    #[On('updateParentCategoryOrdering')]
     public function updateParentCategoryOrdering($positions){
         foreach($positions as $position){
             $index = $position[0];
@@ -85,6 +81,7 @@ class Categories extends Component
         }
     }
 
+    #[On('updateCategoryOrdering')]
     public function updateCategoryOrdering($positions){
         foreach($positions as $position){
             $index = $position[0];
@@ -98,14 +95,14 @@ class Categories extends Component
 
     public function deleteCategory($id)
     {
-        $this->dispatch('deleteCategory', ['id'=>$id]);
+        $this->dispatch('deleteCategory', id: $id);
     }
 
-    public function deleteParentCategory($id)
-    {
-        $this->dispatch('deleteParentCategory', ['id'=>$id]);
+    public function deleteParentCategory($id){
+        $this->dispatch('deleteParentCategory', id: $id);
     }
 
+    #[On('deleteCategoryAction')]
     public function deleteCategoryAction($id)
     {
         $category = Category::findOrFail($id);
@@ -126,6 +123,7 @@ class Categories extends Component
 
 
 
+    #[On('deleteParentCategoryAction')]
     public function deleteParentCategoryAction($id)
     {
         $pcategory = ParentCategory::findOrFail($id);

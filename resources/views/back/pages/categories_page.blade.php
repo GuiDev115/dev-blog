@@ -44,7 +44,7 @@
                 });
 
                 //alert(positions);
-                Livewire.dispatch('updateParentCategoryOrdering', [positions]);
+                Livewire.dispatch('updateParentCategoryOrdering', { positions: positions });
             }
         });
 
@@ -66,12 +66,12 @@
                 });
 
                 //alert(positions);
-                Livewire.dispatch('updateCategoryOrdering', [positions]);
+                Livewire.dispatch('updateCategoryOrdering', { positions: positions });
             }
         });
 
         window.addEventListener('deleteParentCategory', function(event) {
-            var id = event.detail[0].id; // Acessa o id diretamente
+            var id = event.detail.id;
             Swal.fire({
                 title: 'Você Tem Certeza?',
                 text: 'Você deseja deletar esta categoria pai?',
@@ -83,13 +83,13 @@
                 cancelButtonText: 'Cancelar',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteParentCategoryAction', [id]);
+                    Livewire.dispatch('deleteParentCategoryAction', { id: id });
                 }
             });
         });
 
         window.addEventListener('deleteCategory', function (event){
-           var id = event.detail[0].id;
+           var id = event.detail.id;
 
             Swal.fire({
                 title: 'Você Tem Certeza?',
@@ -102,7 +102,7 @@
                 cancelButtonText: 'Cancelar',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteCategoryAction', [id]);
+                    Livewire.dispatch('deleteCategoryAction', { id: id });
                 }
             });
         });

@@ -8,7 +8,7 @@
                         <h4 class="text-blue h4">Categoria Pai</h4>
                     </div>
                     <div class="pull-right">
-                        <a href="javascript:;" class="btn btn-primary btn-sm" wire:click="addParentCategory()"> Add P. Category</a>
+                        <button type="button" class="btn btn-primary btn-sm" wire:click="addParentCategory">Add P. Category</button>
                     </div>
                 </div>
                 <div class="table-responsive mt-4">
@@ -28,12 +28,12 @@
                             <td> {{ $item->children-> count() }} </td>
                             <td>
                                 <div class="table-actions">
-                                    <a href="javascript:;" wire:click="editParentCategory({{$item->id}})"  class="text-primary mx-2">
+                                    <button type="button" wire:click="editParentCategory({{ $item->id }})" class="btn btn-link text-primary mx-2 p-0">
                                         <i class="dw dw-edit2"></i>
-                                    </a>
-                                    <a href="javascript:;" wire:click="deleteParentCategory({{$item->id}})" class="text-danger mx-2">
+                                    </button>
+                                    <button type="button" wire:click="deleteParentCategory({{ $item->id }})" class="btn btn-link text-danger mx-2 p-0">
                                         <i class="dw dw-delete-3"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -44,6 +44,7 @@
                                 </td>
                             </tr>
                         @endforelse
+                        </tbody>
                     </table>
                 </div>
                 <div class="d-block mt-1 texte-center">
@@ -59,7 +60,7 @@
                         <h4 class="text-blue h4">Categorias</h4>
                     </div>
                     <div class="pull-right">
-                        <a href="javascript:;" wire:click="addCategory()" class="btn btn-primary btn-sm"> Add Categoria</a>
+                        <button type="button" wire:click="addCategory" class="btn btn-primary btn-sm">Add Categoria</button>
                     </div>
                 </div>
                 <div class="table-responsive mt-4">
@@ -81,12 +82,12 @@
                             <td> {{ $item->posts->count() }} </td>
                             <td>
                                 <div class="table-actions">
-                                    <a href="javascript:;" wire:click="editCategory({{ $item->id }})" class="text-primary mx-2">
+                                    <button type="button" wire:click="editCategory({{ $item->id }})" class="btn btn-link text-primary mx-2 p-0">
                                         <i class="dw dw-edit2"></i>
-                                    </a>
-                                    <a href="javascript:;" wire:click="deleteCategory({{ $item->id }})" class="text-danger mx-2">
+                                    </button>
+                                    <button type="button" wire:click="deleteCategory({{ $item->id }})" class="btn btn-link text-danger mx-2 p-0">
                                         <i class="dw dw-delete-3"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -97,19 +98,21 @@
                                 </td>
                             </tr>
                         @endforelse
+                        </tbody>
                     </table>
                 </div>
                 <div class="d-block mt-1 text-center">
                     {{ $categories->links('livewire::simple-bootstrap') }}
+                </div>
             </div>
         </div>
     </div>
 
-    -- MODALS --
+    {{-- MODALS --}}
 
     <div wire:ignore.self class="modal fade" id="pcategory_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdriop="static" data-keybaord="false">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" wire:submit="{{ $isUpdateParentCategoryMode ? 'updateParentCategory()' : 'createParentCategory()'}}">
+            <form class="modal-content" wire:submit.prevent="{{ $isUpdateParentCategoryMode ? 'updateParentCategory' : 'createParentCategory'}}">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">
                         {{ $isUpdateParentCategoryMode ? 'Atualizar P. Category' : 'Adicionar P. Category' }}
@@ -145,7 +148,7 @@
 
     <div wire:ignore.self class="modal fade" id="category_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdriop="static" data-keybaord="false">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" wire:submit="{{ $isUpdateCategoryMode ? 'updateCategory()' : 'createCategory()'}}">
+            <form class="modal-content" wire:submit.prevent="{{ $isUpdateCategoryMode ? 'updateCategory' : 'createCategory'}}">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">
                         {{ $isUpdateCategoryMode ? 'Atualiza Category' : 'Adicionar Category' }}
