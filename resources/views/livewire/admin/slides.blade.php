@@ -24,6 +24,10 @@
         </div>
     </div>
 
+<div class="card-box pd-20 mb-4">
+
+
+
     <div class="table-responsive">
         <table class="table table-striped table-auto table-sm table-condensed">
             <thead class="bg-secondary text-white">
@@ -34,10 +38,10 @@
             <th scope="col">Status</th>
             <th scope="col">Ações</th>
             </thead>
-            <tbody>
+            <tbody id="sortable_slides">
                 @forelse ($slides as $slide)
             
-                    <tr>
+                    <tr data-index="{{ $slide->id }}" data-ordering ="{{ $slide->ordering }}">
                         <td scope="row">#{{ $slide->id }}</td>
                         <td>
                                 <img src="/images/slides/{{ $slide->image }}" width="100" alt="">
@@ -55,10 +59,10 @@
                         </td>
                         <td>
                             <div class="table actions">
-                                <a href="" data-color="#265ed7" style="color:rgb(38,94,215)">
+                                <a href="javascript:;" wire:click="editSlide({{ $slide->id }})" data-color="#265ed7" style="color:rgb(38,94,215)">
                                     <i class="icon-copy dw dw-edit2"></i>
                                 </a>
-                                <a href="" data-color="#e95959" style="color:rgb(233,89,89)">
+                                <a href="javascript:;" wire:click="$dispatch('deleteSlide', { id: {{ $slide->id }} })" data-color="#e95959" style="color:rgb(233,89,89)">
                                     <i class="icon-copy dw dw-delete-3"></i>
                                 </a>
                             </div>
@@ -74,6 +78,7 @@
             </tbody>
         </table>
     </div>
+</div>
 
     <!-- SLIDE MODAL -->
     <div wire:ignore.self class="modal fade " id="slide_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
