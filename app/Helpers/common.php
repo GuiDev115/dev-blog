@@ -3,6 +3,7 @@ use App\Models\GeneralSetting;
 use App\Models\ParentCategory;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Slide;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -139,6 +140,13 @@ if(!function_exists('sidebar_latest_posts')) {
         return $posts->where('visibility', 1)
                      ->orderBy('created_at', 'desc')
                      ->get();
+    }
+}
+
+if (!function_exists('getSlides')) {
+    function getSlides($limit = 5)
+    {
+        return Slide::where('status', 1)->limit($limit)->orderBy('ordering', 'asc')->get();
     }
 }
 
