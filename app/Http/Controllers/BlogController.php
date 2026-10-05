@@ -8,6 +8,7 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
+use App\Helpers\CMail;
 
 class BlogController extends Controller
 {
@@ -186,5 +187,56 @@ class BlogController extends Controller
             'prevPost' => $prevPost
         ];
         return view('front.pages.single_post', $data);
+    }
+
+    public function contactPage(Request $request)
+    {
+        $title = 'Contact Us';
+        $description = 'Get in touch with us for inquiries, support, or feedback. We value your communication and look forward to assisting you.';
+
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description);
+        SEOTools::opengraph()->setUrl(route('contact'));
+        SEOTools::opengraph()->addProperty('type', 'website');
+
+        $data = [
+            'pageTitle' => $title
+        ];
+        return view('front.pages.contact', $data);
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'nullable|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        $siteInfo = settings();
+
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'message' => $request->input('message'),
+        ];
+
+        $mail_body = view('email-templates.contact-message-template', $data);
+
+        $mail_config = [
+            'from_address' => $request->email,
+            'from_name' => $request->name,
+            'recipient_address' => $siteInfo->site_email,
+            'recipient_name' => $siteInfo->site_title,
+            'subject' => $request->subject ?? 'New Contact Message',
+            'body' => $mail_body,
+        ];
+
+        if( Cmail::send($mail_config) ){
+            return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Failed to send your message. Please try again later.');
+        }
     }
 }

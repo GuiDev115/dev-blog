@@ -13,6 +13,8 @@ Route::get('/posts/category/{slug}', [BlogController::class, 'categoryPosts'])->
 Route::get('/posts/author/{username}', [BlogController::class, 'authorPosts'])->name('author_posts');
 Route::get('/posts/tag/{any}', [BlogController::class, 'tagPosts'])->name('tag_posts');
 Route::get('/search', [BlogController::class, 'searchPosts'])->name('search_posts');
+Route::get('/contact', [BlogController::class, 'contactPage'])->name('contact');
+Route::post('/contact', [BlogController::class, 'sendEmail'])->name('send_email');
 
 Route::view('/example-page', 'example-page');
 Route::view('/example-auth', 'example-auth');

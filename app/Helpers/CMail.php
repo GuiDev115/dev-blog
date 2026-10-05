@@ -34,6 +34,7 @@ class CMail
             }
 
             // Content
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
             $mail->isHTML(true);
             $mail->Subject = $config['subject'];
             $mail->Body    = $config['body'];
