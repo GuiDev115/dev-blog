@@ -132,13 +132,7 @@
 
             <div class="col-md-3 mb-4">
                 <h6 class="mb-4">Subscribe Newsletter</h6>
-                <form class="subscription" action="javascript:void(0)" method="post">
-                    <div class="position-relative">
-                        <i class="ti-email email-icon"></i>
-                        <input type="email" class="form-control" placeholder="Your Email Address">
-                    </div>
-                    <button class="btn btn-primary btn-block rounded" type="submit">Subscribe now</button>
-                </form>
+                @livewire('newletter-form')
             </div>
         </div>
         <div class="scroll-top">
@@ -155,6 +149,16 @@
 <script src="/front/plugins/bootstrap/bootstrap.min.js" async></script>
 <script src="/front/plugins/slick/slick.min.js"></script>
 <script src="/front/js/script.js"></script>
+<script>
+    window.addEventListener('showToastr', function(event) {
+        $().notifa({
+            vers:2,
+            cssClass:event.detail[0].type,
+            html:event.detail[0].message,
+            delay:2500
+        });
+    });
+</script>
 
 <script>
     document.querySelector('.user-details').addEventListener('click', function(){
